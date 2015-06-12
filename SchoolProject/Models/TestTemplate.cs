@@ -9,7 +9,7 @@ namespace SchoolProject.Models
     {
         public int TestTemplateID { get; set; }
         public string Name { get; set; }
-        public DateTime Time { get; set; }
+        public TimeSpan Time { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int QuestionCount { get; set; }

@@ -87,7 +87,7 @@ namespace SchoolProject.DAL
                     StartTime = new DateTime(1984, 4, 10),
                     StudentGroupID = 1,
                     Questions = new List<Question> {questions.First()},
-                    Time = new DateTime(0, 0, 0, 0, 5, 0)
+                    Time = new TimeSpan(0,5,0)
                 },
                 new TestTemplate
                 {
@@ -97,7 +97,7 @@ namespace SchoolProject.DAL
                     StartTime = new DateTime(1999, 4, 10),
                     StudentGroupID = 2,
                     Questions = new List<Question> {questions.Last()},
-                    Time = new DateTime(0, 0, 0, 0, 5, 0)
+                    Time = new TimeSpan(0,5,0)
                 }
             };
             testTemplates.ForEach(t => context.TestTemplates.Add(t));
