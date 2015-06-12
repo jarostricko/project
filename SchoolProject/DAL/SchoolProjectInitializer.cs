@@ -58,7 +58,7 @@ namespace SchoolProject.DAL
             {
                 new Question
                 {
-                    QText = "Kolko noh ma pavuk?",
+                    Text = "Kolko noh ma pavuk?",
                     AnswersList = new List<string> {"1", "2", "6", "8"},
                     CorrectAnswersList = new List<string> {"8"},
                     Explanation = "Pavuk ma 8 noh lebo je mimozemstan",
@@ -67,7 +67,7 @@ namespace SchoolProject.DAL
                 },
                 new Question
                 {
-                    QText = "Kde je Slovensko?",
+                    Text = "Kde je Slovensko?",
                     AnswersList = new List<string> {"V Europe", "V Azii", "Vo vesmire", "V amerike"},
                     CorrectAnswersList = new List<string> {"V Europe"},
                     Explanation = "Slovensko je v Europe",
