@@ -45,10 +45,11 @@ namespace SchoolProject.DAL
             fields.ForEach(f => context.ThematicFields.Add(f));
             context.SaveChanges();
 
+            var studs = new List<Student> {students.First(), students.Last()};
             var studentGroups = new List<StudentGroup>
             {
-                new StudentGroup {Title = "Group A", Students = new List<Student> {students.First(), students.Last()}},
-                new StudentGroup {Title = "Group B"}
+                new StudentGroup {Title = "Group A", Students = studs},
+                new StudentGroup {Title = "Group B", Students = null}
             };
             studentGroups.ForEach(s => context.StudentGroups.Add(s));
             context.SaveChanges();
@@ -57,7 +58,7 @@ namespace SchoolProject.DAL
             {
                 new Question
                 {
-                    Text = "Kolko noh ma pavuk?",
+                    QText = "Kolko noh ma pavuk?",
                     AnswersList = new List<string> {"1", "2", "6", "8"},
                     CorrectAnswersList = new List<string> {"8"},
                     Explanation = "Pavuk ma 8 noh lebo je mimozemstan",
@@ -66,7 +67,7 @@ namespace SchoolProject.DAL
                 },
                 new Question
                 {
-                    Text = "Kde je Slovensko?",
+                    QText = "Kde je Slovensko?",
                     AnswersList = new List<string> {"V Europe", "V Azii", "Vo vesmire", "V amerike"},
                     CorrectAnswersList = new List<string> {"V Europe"},
                     Explanation = "Slovensko je v Europe",

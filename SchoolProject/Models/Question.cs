@@ -8,7 +8,7 @@ namespace SchoolProject.Models
     public class Question
     {
         public int QuestionID { get; set; }
-        public string Text { get; set; }
+        public string QText { get; set; }
         public IEnumerable<string> AnswersList { get; set; }
         public IEnumerable<string> CorrectAnswersList { get; set; }
         public int Points { get; set; }

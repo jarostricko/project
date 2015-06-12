@@ -164,6 +164,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudentGroupController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
+    <Compile Include="Controllers\ThematicFieldController.cs" />
     <Compile Include="DAL\SchoolProjectContext.cs" />
     <Compile Include="DAL\SchoolProjectInitializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -242,6 +245,21 @@
     <Content Include="Views\Student\Details.cshtml" />
     <Content Include="Views\Student\Edit.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Teacher\Create.cshtml" />
+    <Content Include="Views\Teacher\Delete.cshtml" />
+    <Content Include="Views\Teacher\Details.cshtml" />
+    <Content Include="Views\Teacher\Edit.cshtml" />
+    <Content Include="Views\Teacher\Index.cshtml" />
+    <Content Include="Views\ThematicField\Create.cshtml" />
+    <Content Include="Views\ThematicField\Delete.cshtml" />
+    <Content Include="Views\ThematicField\Details.cshtml" />
+    <Content Include="Views\ThematicField\Edit.cshtml" />
+    <Content Include="Views\ThematicField\Index.cshtml" />
+    <Content Include="Views\StudentGroup\Create.cshtml" />
+    <Content Include="Views\StudentGroup\Delete.cshtml" />
+    <Content Include="Views\StudentGroup\Details.cshtml" />
+    <Content Include="Views\StudentGroup\Edit.cshtml" />
+    <Content Include="Views\StudentGroup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
