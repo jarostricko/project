@@ -9,28 +9,34 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ThematicField.Title)
+            @Html.ActionLink("Question text", "Index", new { sortOrder = ViewBag.TextSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Text)
+            @Html.ActionLink("Points", "Index", new { sortOrder = ViewBag.PointsSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Points)
+            @Html.ActionLink("Explanation", "Index", new { sortOrder = ViewBag.ExplSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Explanation)
+            @Html.ActionLink("Thematic Field", "Index", new { sortOrder = ViewBag.FieldSortParm })
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ThematicField.Title)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Text)
         </td>
@@ -39,6 +45,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Explanation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThematicField.Title)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.QuestionID }) |

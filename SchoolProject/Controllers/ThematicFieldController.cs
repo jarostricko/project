@@ -16,9 +16,24 @@ namespace SchoolProject.Controllers
         private SchoolProjectContext db = new SchoolProjectContext();
 
         // GET: ThematicField
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
-            return View(db.ThematicFields.ToList());
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            var fields = db.ThematicFields.ToList();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                fields = fields.Where(s => s.Title.Contains(searchString)).ToList();
+            }
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    fields = fields.OrderByDescending(s => s.Title).ToList();
+                    break;
+                default:
+                    fields = fields.OrderBy(s => s.Title).ToList();
+                    break;
+            }
+            return View(fields.ToList());
         }
 
         // GET: ThematicField/Details/5

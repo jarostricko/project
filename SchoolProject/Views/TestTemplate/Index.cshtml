@@ -9,25 +9,34 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.StudentGroup.Title)
+            @Html.ActionLink("Student Group", "Index", new { sortOrder = ViewBag.GroupSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Time)
+            @Html.ActionLink("Time", "Index", new { sortOrder = ViewBag.TimeSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartTime)
+            @Html.ActionLink("Start time", "Index", new { sortOrder = ViewBag.STimeSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndTime)
+            @Html.ActionLink("End Time", "Index", new { sortOrder = ViewBag.ETimeSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.QuestionCount)
+            @Html.ActionLink("Question Count", "Index", new { sortOrder = ViewBag.CountSortParm })
         </th>
         <th></th>
     </tr>

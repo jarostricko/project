@@ -16,9 +16,40 @@ namespace SchoolProject.Controllers
         private SchoolProjectContext db = new SchoolProjectContext();
 
         // GET: Teacher
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
-            return View(db.Teachers.ToList());
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.FirstNameSortParm = sortOrder == "FirstName" ? "firstName_desc" : "FirstName";
+            var teachers = from s in db.Teachers
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                teachers = teachers.Where(s => s.SureName.Contains(searchString)
+                                       || s.FirstName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    teachers = teachers.OrderByDescending(s => s.SureName);
+                    break;
+                case "firstName_desc":
+                    teachers = teachers.OrderByDescending(s => s.FirstName);
+                    break;
+                case "FirstName":
+                    teachers = teachers.OrderBy(s => s.FirstName);
+                    break;
+                case "Date":
+                    teachers = teachers.OrderBy(s => s.BirthDate);
+                    break;
+                case "date_desc":
+                    teachers = teachers.OrderByDescending(s => s.BirthDate);
+                    break;
+                default:
+                    teachers = teachers.OrderBy(s => s.SureName);
+                    break;
+            }
+            return View(teachers.ToList());
         }
 
         // GET: Teacher/Details/5

@@ -16,9 +16,46 @@ namespace SchoolProject.Controllers
         private SchoolProjectContext db = new SchoolProjectContext();
 
         // GET: Question
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
+            ViewBag.TextSortParm = String.IsNullOrEmpty(sortOrder) ? "text_desc" : "";
+            ViewBag.PointsSortParm = sortOrder == "Point" ? "point_desc" : "Point";
+            ViewBag.ExplSortParm = sortOrder == "Expl" ? "expl_desc" : "Expl";
+            ViewBag.FieldSortParm = sortOrder == "Field" ? "field_desc" : "Field";
             var questions = db.Questions.Include(q => q.ThematicField);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                questions = questions.Where(s => s.Text.Contains(searchString)
+                                       || s.Explanation.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "text_desc":
+                    questions = questions.OrderByDescending(s => s.Text);
+                    break;
+                case "expl_desc":
+                    questions = questions.OrderByDescending(s => s.Explanation);
+                    break;
+                case "Expl":
+                    questions = questions.OrderBy(s => s.Explanation);
+                    break;
+                case "Point":
+                    questions = questions.OrderBy(s => s.Points);
+                    break;
+                case "point_desc":
+                    questions = questions.OrderByDescending(s => s.Points);
+                    break;
+                case "Field":
+                    questions = questions.OrderBy(s => s.ThematicField.Title);
+                    break;
+                case "field_desc":
+                    questions = questions.OrderByDescending(s => s.ThematicField.Title);
+                    break;
+                default:
+                    questions = questions.OrderBy(s => s.Text);
+                    break;
+            }
             return View(questions.ToList());
         }
 
