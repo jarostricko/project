@@ -47,15 +47,23 @@ namespace SchoolProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StudentGroupID,Title")] StudentGroup studentGroup)
+        public ActionResult Create([Bind(Include = "Title")] StudentGroup studentGroup)
         {
-            if (ModelState.IsValid)
-            {
-                db.StudentGroups.Add(studentGroup);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.StudentGroups.Add(studentGroup);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
             return View(studentGroup);
         }
 
@@ -91,11 +99,16 @@ namespace SchoolProject.Controllers
         }
 
         // GET: StudentGroup/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
             }
             StudentGroup studentGroup = db.StudentGroups.Find(id);
             if (studentGroup == null)
@@ -110,9 +123,18 @@ namespace SchoolProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            StudentGroup studentGroup = db.StudentGroups.Find(id);
-            db.StudentGroups.Remove(studentGroup);
-            db.SaveChanges();
+            try
+            {
+                StudentGroup studentGroup = db.StudentGroups.Find(id);
+                db.StudentGroups.Remove(studentGroup);
+                db.SaveChanges();
+            }
+            catch (DataException/* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
+            
             return RedirectToAction("Index");
         }
 

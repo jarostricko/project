@@ -47,15 +47,22 @@ namespace SchoolProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ThematicFieldID,Title")] ThematicField thematicField)
+        public ActionResult Create([Bind(Include = "Title")] ThematicField thematicField)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.ThematicFields.Add(thematicField);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.ThematicFields.Add(thematicField);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            catch (DataException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
             return View(thematicField);
         }
 
@@ -91,11 +98,15 @@ namespace SchoolProject.Controllers
         }
 
         // GET: ThematicField/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
             }
             ThematicField thematicField = db.ThematicFields.Find(id);
             if (thematicField == null)
@@ -110,9 +121,17 @@ namespace SchoolProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ThematicField thematicField = db.ThematicFields.Find(id);
-            db.ThematicFields.Remove(thematicField);
-            db.SaveChanges();
+            try
+            {
+                ThematicField thematicField = db.ThematicFields.Find(id);
+                db.ThematicFields.Remove(thematicField);
+                db.SaveChanges();
+            }
+            catch (DataException/* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
             return RedirectToAction("Index");
         }
 

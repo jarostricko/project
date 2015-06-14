@@ -47,15 +47,22 @@ namespace SchoolProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,SureName,FirstName,BirthDate")] Teacher teacher)
+        public ActionResult Create([Bind(Include = "SureName,FirstName,BirthDate")] Teacher teacher)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Teachers.Add(teacher);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Teachers.Add(teacher);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            catch (DataException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
             return View(teacher);
         }
 
@@ -91,11 +98,15 @@ namespace SchoolProject.Controllers
         }
 
         // GET: Teacher/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
             }
             Teacher teacher = db.Teachers.Find(id);
             if (teacher == null)
@@ -110,9 +121,18 @@ namespace SchoolProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Teacher teacher = db.Teachers.Find(id);
-            db.Teachers.Remove(teacher);
-            db.SaveChanges();
+            try
+            {
+                Teacher teacher = db.Teachers.Find(id);
+                db.Teachers.Remove(teacher);
+                db.SaveChanges();
+            }
+            catch (DataException/* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
+            
             return RedirectToAction("Index");
         }
 

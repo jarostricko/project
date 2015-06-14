@@ -49,15 +49,22 @@ namespace SchoolProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "QuestionID,Text,Points,Explanation,ThematicFieldID")] Question question)
+        public ActionResult Create([Bind(Include = "Text,Points,Explanation,ThematicFieldID")] Question question)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Questions.Add(question);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Questions.Add(question);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            catch (DataException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
             ViewBag.ThematicFieldID = new SelectList(db.ThematicFields, "ThematicFieldID", "Title", question.ThematicFieldID);
             return View(question);
         }
@@ -96,11 +103,15 @@ namespace SchoolProject.Controllers
         }
 
         // GET: Question/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
             }
             Question question = db.Questions.Find(id);
             if (question == null)
@@ -115,9 +126,17 @@ namespace SchoolProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Question question = db.Questions.Find(id);
-            db.Questions.Remove(question);
-            db.SaveChanges();
+            try
+            {
+                Question question = db.Questions.Find(id);
+                db.Questions.Remove(question);
+                db.SaveChanges();
+            }
+            catch (DataException/* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
             return RedirectToAction("Index");
         }
 

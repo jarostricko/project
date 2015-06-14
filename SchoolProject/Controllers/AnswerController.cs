@@ -49,13 +49,21 @@ namespace SchoolProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AnswerID,AnswerText,IsCorrect,QuestionID")] Answer answer)
+        public ActionResult Create([Bind(Include = "AnswerText,IsCorrect,QuestionID")] Answer answer)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Answers.Add(answer);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Answers.Add(answer);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
 
             ViewBag.QuestionID = new SelectList(db.Questions, "QuestionID", "Text", answer.QuestionID);
@@ -96,11 +104,15 @@ namespace SchoolProject.Controllers
         }
 
         // GET: Answer/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
             }
             Answer answer = db.Answers.Find(id);
             if (answer == null)
@@ -115,9 +127,18 @@ namespace SchoolProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Answer answer = db.Answers.Find(id);
-            db.Answers.Remove(answer);
-            db.SaveChanges();
+            try
+            {
+                Answer answer = db.Answers.Find(id);
+                db.Answers.Remove(answer);
+                db.SaveChanges();
+            }
+            catch (DataException/* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
+            
             return RedirectToAction("Index");
         }
 
