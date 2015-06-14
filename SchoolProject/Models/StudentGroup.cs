@@ -9,7 +9,7 @@ namespace SchoolProject.Models
     {
         public int StudentGroupID { get; set; }
         public string Title { get; set; }
-        public virtual IEnumerable<Student> Students { get; set; }
+        public virtual List<Student> Students { get; set; }
 
     }
 }

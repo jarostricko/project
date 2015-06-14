@@ -11,6 +11,8 @@ namespace SchoolProject.Models
         public string SureName { get; set; }
         public string FirstName { get; set; }
         public DateTime BirthDate { get; set; }
+        public virtual List<StudentGroup> StudentGroups { get; set; } 
+
 
     }
 }

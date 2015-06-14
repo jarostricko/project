@@ -20,10 +20,13 @@ namespace SchoolProject.DAL
         public DbSet<StudentGroup> StudentGroups { get; set; }
         public DbSet<TestTemplate> TestTemplates { get; set; }
         public DbSet<ThematicField> ThematicFields { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
     }
 }

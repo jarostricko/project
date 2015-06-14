@@ -161,19 +161,51 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AnswerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\StudentGroupController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
+    <Compile Include="Controllers\TestTemplateController.cs" />
     <Compile Include="Controllers\ThematicFieldController.cs" />
     <Compile Include="DAL\SchoolProjectContext.cs" />
     <Compile Include="DAL\SchoolProjectInitializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506131324434_InitialCreate.cs" />
+    <Compile Include="Migrations\201506131324434_InitialCreate.Designer.cs">
+      <DependentUpon>201506131324434_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506131746520_Init.cs" />
+    <Compile Include="Migrations\201506131746520_Init.Designer.cs">
+      <DependentUpon>201506131746520_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506141335169_Abc.cs" />
+    <Compile Include="Migrations\201506141335169_Abc.Designer.cs">
+      <DependentUpon>201506141335169_Abc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506141343099_Abcd.cs" />
+    <Compile Include="Migrations\201506141343099_Abcd.Designer.cs">
+      <DependentUpon>201506141343099_Abcd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506141403546_Abcde.cs" />
+    <Compile Include="Migrations\201506141403546_Abcde.Designer.cs">
+      <DependentUpon>201506141403546_Abcde.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506141419254_Abc1.cs" />
+    <Compile Include="Migrations\201506141419254_Abc1.Designer.cs">
+      <DependentUpon>201506141419254_Abc1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506141424209_Abc2.cs" />
+    <Compile Include="Migrations\201506141424209_Abc2.Designer.cs">
+      <DependentUpon>201506141424209_Abc2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Question.cs" />
@@ -261,6 +293,16 @@
     <Content Include="Views\StudentGroup\Details.cshtml" />
     <Content Include="Views\StudentGroup\Edit.cshtml" />
     <Content Include="Views\StudentGroup\Index.cshtml" />
+    <Content Include="Views\TestTemplate\Create.cshtml" />
+    <Content Include="Views\TestTemplate\Delete.cshtml" />
+    <Content Include="Views\TestTemplate\Details.cshtml" />
+    <Content Include="Views\TestTemplate\Edit.cshtml" />
+    <Content Include="Views\TestTemplate\Index.cshtml" />
+    <Content Include="Views\Answer\Create.cshtml" />
+    <Content Include="Views\Answer\Delete.cshtml" />
+    <Content Include="Views\Answer\Details.cshtml" />
+    <Content Include="Views\Answer\Edit.cshtml" />
+    <Content Include="Views\Answer\Index.cshtml" />
     <Content Include="Views\Question\Create.cshtml" />
     <Content Include="Views\Question\Delete.cshtml" />
     <Content Include="Views\Question\Details.cshtml" />
@@ -276,6 +318,29 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201506131324434_InitialCreate.resx">
+      <DependentUpon>201506131324434_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506131746520_Init.resx">
+      <DependentUpon>201506131746520_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506141335169_Abc.resx">
+      <DependentUpon>201506141335169_Abc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506141343099_Abcd.resx">
+      <DependentUpon>201506141343099_Abcd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506141403546_Abcde.resx">
+      <DependentUpon>201506141403546_Abcde.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506141419254_Abc1.resx">
+      <DependentUpon>201506141419254_Abc1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506141424209_Abc2.resx">
+      <DependentUpon>201506141424209_Abc2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

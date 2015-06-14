@@ -18,27 +18,33 @@
             @Html.DisplayFor(model => model.Title)
 
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Students)
         </dt>
         <dd>
-            @if (Model.Students != null)
-            {
-                foreach (var item in Model.Students)
+            <table class="table">
+                <tr>
+                    <th>First name</th>
+                    <th>Sure name</th>
+                    <th>Birthdate</th>
+                </tr>
+                @foreach (var item in Model.Students)
                 {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ID)
-                    </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SureName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BirthDate)
+                        </td>
+                    </tr>
                 }
-            }
-            else
-            {
-                <td>
-                    @Html.DisplayFor(model => model.Title)
-                </td>
-            }
+            </table>
         </dd>
-
     </dl>
 </div>
 <p>

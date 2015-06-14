@@ -53,14 +53,27 @@ namespace SchoolProject.DAL
             };
             studentGroups.ForEach(s => context.StudentGroups.Add(s));
             context.SaveChanges();
+            
+            var answers1 = new List<Answer>
+            {
+                new Answer{AnswerText = "1"},new Answer{AnswerText = "2"},new Answer{AnswerText = "6"},new Answer{AnswerText = "8",IsCorrect = true},
+            };
+            var answers2 = new List<Answer>
+            {
+                new Answer{AnswerText = "V Europe",IsCorrect = true},new Answer{AnswerText = "V Azii"},new Answer{AnswerText = "Vo Vesmire"},new Answer{AnswerText = "V Amerike"}
+            };
+            answers1.ForEach(a=>context.Answers.Add(a));
+            answers2.ForEach(a=>context.Answers.Add(a));
+            context.SaveChanges();
+
 
             var questions = new List<Question>
             {
                 new Question
                 {
                     Text = "Kolko noh ma pavuk?",
-                    AnswersList = new List<string> {"1", "2", "6", "8"},
-                    CorrectAnswersList = new List<string> {"8"},
+                    AnswersList = answers1,
+                    //CorrectAnswersList = new List<string> {"8"},
                     Explanation = "Pavuk ma 8 noh lebo je mimozemstan",
                     Points = 5,
                     ThematicFieldID = 1
@@ -68,8 +81,8 @@ namespace SchoolProject.DAL
                 new Question
                 {
                     Text = "Kde je Slovensko?",
-                    AnswersList = new List<string> {"V Europe", "V Azii", "Vo vesmire", "V amerike"},
-                    CorrectAnswersList = new List<string> {"V Europe"},
+                    AnswersList = answers2,
+                    //CorrectAnswersList = new List<string> {"V Europe"},
                     Explanation = "Slovensko je v Europe",
                     Points = 3,
                     ThematicFieldID = 2
@@ -77,7 +90,7 @@ namespace SchoolProject.DAL
             };
             questions.ForEach(q => context.Questions.Add(q));
             context.SaveChanges();
-
+            
             var testTemplates = new List<TestTemplate>
             {
                 new TestTemplate

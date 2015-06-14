@@ -9,6 +9,6 @@ namespace SchoolProject.Models
     {
         public int ThematicFieldID { get; set; }
         public string Title { get; set; }
-
+        public virtual List<TestTemplate> TestTemplates { get; set; }
     }
 }
