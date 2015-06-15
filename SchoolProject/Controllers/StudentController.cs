@@ -38,6 +38,7 @@ namespace SchoolProject.Controllers
 
             var students = from s in db.Students
                            select s;
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 students = students.Where(s => s.SureName.Contains(searchString)
