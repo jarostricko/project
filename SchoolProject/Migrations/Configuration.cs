@@ -82,7 +82,8 @@ namespace SchoolProject.Migrations
                     ThematicFieldID = 2
                 }
             };
-            questions.ForEach(q => context.Questions.AddOrUpdate(a => a.Text,q));
+
+            questions.ForEach(q => context.Questions.AddOrUpdate(a => a.Text, q));
             context.SaveChanges();
 
             //ANSWERS
@@ -100,9 +101,30 @@ namespace SchoolProject.Migrations
                 new Answer{AnswerText = "Vo Vesmire",Question = questions.Single(q => q.Text == "Kde je Slovensko?")},
                 new Answer{AnswerText = "V Amerike",Question = questions.Single(q => q.Text == "Kde je Slovensko?")}
             };
-            answers1.ForEach(a => context.Answers.AddOrUpdate(p => p.AnswerText, a));
-            answers2.ForEach(a => context.Answers.AddOrUpdate(p => p.AnswerText, a));
+
+            foreach (Answer e in answers1)
+            {
+                var answerInDataBase = context.Answers.Where(
+                    s =>
+                         s.Question.QuestionID == e.QuestionID).SingleOrDefault();
+                if (answerInDataBase == null)
+                {
+                    context.Answers.Add(e);
+                }
+            }
+            foreach (Answer e in answers2)
+            {
+                var answerInDataBase = context.Answers.Where(
+                    s =>
+                         s.Question.QuestionID == e.QuestionID).SingleOrDefault();
+                if (answerInDataBase == null)
+                {
+                    context.Answers.Add(e);
+                }
+            }
             context.SaveChanges();
+
+
 
             //TEST TEMPLATES
             var testTemplates = new List<TestTemplate>
@@ -128,7 +150,17 @@ namespace SchoolProject.Migrations
                     Time = new TimeSpan(0,5,0)
                 }
             };
-            testTemplates.ForEach(t => context.TestTemplates.AddOrUpdate(s => s.Name,t));
+
+            foreach (TestTemplate t in testTemplates)
+            {
+                var templateInDataBase = context.TestTemplates.Where(
+                    s =>
+                         s.StudentGroup.StudentGroupID == t.StudentGroupID).SingleOrDefault();
+                if (templateInDataBase == null)
+                {
+                    context.TestTemplates.Add(t);
+                }
+            }
             context.SaveChanges();
         }
     }
