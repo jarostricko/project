@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SchoolProject.Models.StudentGroup>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.StudentGroupID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.StudentGroupID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.StudentGroupID })
+        </td>
+    </tr>
+}
+
+</table>
