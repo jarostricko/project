@@ -190,10 +190,6 @@
     <Compile Include="Migrations\201506131746520_Init.Designer.cs">
       <DependentUpon>201506131746520_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201506141419254_Abc1.cs" />
-    <Compile Include="Migrations\201506141419254_Abc1.Designer.cs">
-      <DependentUpon>201506141419254_Abc1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201506141424209_Abc2.cs" />
     <Compile Include="Migrations\201506141424209_Abc2.Designer.cs">
       <DependentUpon>201506141424209_Abc2.cs</DependentUpon>
@@ -341,9 +337,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506131746520_Init.resx">
       <DependentUpon>201506131746520_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506141419254_Abc1.resx">
-      <DependentUpon>201506141419254_Abc1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506141424209_Abc2.resx">
       <DependentUpon>201506141424209_Abc2.cs</DependentUpon>
