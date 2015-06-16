@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,11 +8,13 @@ namespace SchoolProject.Models
 {
     public class Teacher
     {
+        /*
         public int ID { get; set; }
         public string SureName { get; set; }
         public string FirstName { get; set; }
         public DateTime BirthDate { get; set; }
-        /*public int ID { get; set; }
+        */
+        public int ID { get; set; }
         [Required]
         [Display(Name = "Last Name")]
         [StringLength(50, ErrorMessage = "Last name cannot be longer than 50 characters.")]
@@ -28,6 +31,6 @@ namespace SchoolProject.Models
         public string FullName
         {
             get { return SureName + " " + FirstName; }
-        }*/
+        }
     }
 }

@@ -222,6 +222,10 @@
     <Compile Include="Migrations\201506160736352_studentValid.Designer.cs">
       <DependentUpon>201506160736352_studentValid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506160739568_teacherValid.cs" />
+    <Compile Include="Migrations\201506160739568_teacherValid.Designer.cs">
+      <DependentUpon>201506160739568_teacherValid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -369,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506160736352_studentValid.resx">
       <DependentUpon>201506160736352_studentValid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506160739568_teacherValid.resx">
+      <DependentUpon>201506160739568_teacherValid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
