@@ -234,6 +234,10 @@
     <Compile Include="Migrations\201506160749419_fieldValid.Designer.cs">
       <DependentUpon>201506160749419_fieldValid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506160752188_templateValid.cs" />
+    <Compile Include="Migrations\201506160752188_templateValid.Designer.cs">
+      <DependentUpon>201506160752188_templateValid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -390,6 +394,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506160749419_fieldValid.resx">
       <DependentUpon>201506160749419_fieldValid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506160752188_templateValid.resx">
+      <DependentUpon>201506160752188_templateValid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

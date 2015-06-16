@@ -8,6 +8,7 @@ namespace SchoolProject.Models
 {
     public class TestTemplate
     {
+        /*
         public int TestTemplateID { get; set; }
         public string Name { get; set; }
         [DataType(DataType.Time)]
@@ -19,7 +20,8 @@ namespace SchoolProject.Models
         public virtual StudentGroup StudentGroup { get; set; }
         public virtual List<Question> Questions { get; set; }
         public virtual List<ThematicField> ThematicFields { get; set; }
-        /*public int TestTemplateID { get; set; }
+        */
+        public int TestTemplateID { get; set; }
         [Required]
         [Display(Name = "Template Name")]
         [StringLength(50)]
@@ -34,7 +36,7 @@ namespace SchoolProject.Models
         public int StudentGroupID { get; set; }
         public virtual StudentGroup StudentGroup { get; set; }
         public virtual List<Question> Questions { get; set; }
-        public virtual List<ThematicField> ThematicFields { get; set; }*/
+        public virtual List<ThematicField> ThematicFields { get; set; }
         
 
     }
