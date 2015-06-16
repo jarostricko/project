@@ -230,6 +230,10 @@
     <Compile Include="Migrations\201506160747233_answerValid.Designer.cs">
       <DependentUpon>201506160747233_answerValid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506160749419_fieldValid.cs" />
+    <Compile Include="Migrations\201506160749419_fieldValid.Designer.cs">
+      <DependentUpon>201506160749419_fieldValid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -383,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506160747233_answerValid.resx">
       <DependentUpon>201506160747233_answerValid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506160749419_fieldValid.resx">
+      <DependentUpon>201506160749419_fieldValid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
