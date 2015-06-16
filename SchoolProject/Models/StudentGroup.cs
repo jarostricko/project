@@ -8,13 +8,16 @@ namespace SchoolProject.Models
 {
     public class StudentGroup
     {
+        /*
+        public int StudentGroupID { get; set; }
+        public string Title { get; set; }
+        public virtual List<Student> Students { get; set; }*/
         public int StudentGroupID { get; set; }
         [Required]
         [Display(Name = "Group Title")]
         [StringLength(50)]
         public string Title { get; set; }
         public virtual List<Student> Students { get; set; }
-
 
     }
 }

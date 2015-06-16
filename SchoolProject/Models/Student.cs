@@ -8,6 +8,13 @@ namespace SchoolProject.Models
 {
     public class Student
     {
+        /*
+        public int ID { get; set; }
+        public string SureName { get; set; }
+        public string FirstName { get; set; }
+        public DateTime BirthDate { get; set; }
+        public virtual List<StudentGroup> StudentGroups { get; set; } */
+
         public int ID { get; set; }
         [Required]
         [Display(Name = "Last Name")]
@@ -28,6 +35,5 @@ namespace SchoolProject.Models
         {
             get { return SureName + " " + FirstName; }
         }
-
     }
 }

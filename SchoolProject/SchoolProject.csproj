@@ -210,13 +210,17 @@
     <Compile Include="Migrations\201506141424209_Abc2.Designer.cs">
       <DependentUpon>201506141424209_Abc2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201506151903280_seed.cs" />
-    <Compile Include="Migrations\201506151903280_seed.Designer.cs">
-      <DependentUpon>201506151903280_seed.cs</DependentUpon>
+    <Compile Include="Migrations\201506160729255_noSeed.cs" />
+    <Compile Include="Migrations\201506160729255_noSeed.Designer.cs">
+      <DependentUpon>201506160729255_noSeed.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201506151913484_Validations.cs" />
-    <Compile Include="Migrations\201506151913484_Validations.Designer.cs">
-      <DependentUpon>201506151913484_Validations.cs</DependentUpon>
+    <Compile Include="Migrations\201506160734135_groupValid.cs" />
+    <Compile Include="Migrations\201506160734135_groupValid.Designer.cs">
+      <DependentUpon>201506160734135_groupValid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506160736352_studentValid.cs" />
+    <Compile Include="Migrations\201506160736352_studentValid.Designer.cs">
+      <DependentUpon>201506160736352_studentValid.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -357,11 +361,14 @@
     <EmbeddedResource Include="Migrations\201506141424209_Abc2.resx">
       <DependentUpon>201506141424209_Abc2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506151903280_seed.resx">
-      <DependentUpon>201506151903280_seed.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201506160729255_noSeed.resx">
+      <DependentUpon>201506160729255_noSeed.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506151913484_Validations.resx">
-      <DependentUpon>201506151913484_Validations.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201506160734135_groupValid.resx">
+      <DependentUpon>201506160734135_groupValid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506160736352_studentValid.resx">
+      <DependentUpon>201506160736352_studentValid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
