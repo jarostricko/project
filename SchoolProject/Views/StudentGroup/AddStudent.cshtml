@@ -14,18 +14,18 @@
         <dd>
             <table class="table">
                 <tr>
-                    <th>First name</th>
                     <th>Sure name</th>
+                    <th>First name</th>
                     <th>Birthdate</th>
                 </tr>
                 @foreach (var item in Model.Students)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FirstName)
+                            @Html.DisplayFor(modelItem => item.SureName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.SureName)
+                            @Html.DisplayFor(modelItem => item.FirstName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.BirthDate)
@@ -40,5 +40,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { id = Model.StudentGroup.StudentGroupID })
 </p>

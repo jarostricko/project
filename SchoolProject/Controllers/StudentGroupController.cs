@@ -224,20 +224,18 @@ namespace SchoolProject.Controllers
 
         public ActionResult AddStudent(int id, int? studentID)
         {
+            StudentGroup studentGroup = db.StudentGroups.Find(id);
             if (studentID != null)
             {
-                StudentGroup studentGroup = db.StudentGroups.Find(id);
                 Student student = db.Students.Find(studentID);
                 studentGroup.Students.Add(student);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = studentGroup.StudentGroupID });
             }
-
-            ViewBag.Student = db.Students;
             var viewModel = new StudentGroupIndexData();
-            viewModel.StudentGroup = db.StudentGroups.
-                Find(id);
+            viewModel.StudentGroup = studentGroup;
             viewModel.Students = db.Students.OrderBy(i => i.SureName);
+            viewModel.Students = viewModel.Students.Except(studentGroup.Students);
             return View(viewModel);
         }
 
