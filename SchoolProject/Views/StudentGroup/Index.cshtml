@@ -1,11 +1,8 @@
-﻿@model IEnumerable<SchoolProject.Models.StudentGroup>
-
+﻿@model SchoolProject.ViewModels.StudentGroupIndexData
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -19,22 +16,63 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm })
+            Title
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.StudentGroupID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.StudentGroupID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.StudentGroupID })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model.StudentGroups)
+    {
+        string selectedRow = "";
+        if (item.StudentGroupID == ViewBag.StudentGroupID)
+        {
+            selectedRow = "success";
+        }
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.ActionLink("Students", "Index", new {id = item.StudentGroupID}) |
+                @Html.ActionLink("Edit", "Edit", new {id = item.StudentGroupID}) |
+                @Html.ActionLink("Details", "Details", new {id = item.StudentGroupID}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.StudentGroupID})
+            </td>
+        </tr>
+    }
 </table>
+@if (Model.Students != null)
+{
+    <h3>Students in selected Group</h3>
+    <table class="table">
+        <tr>
+            <th>Last name</th>
+            <th>First name</th>
+            <th>Birth Date</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Students)
+        {
+            string selectedRow = "";
+            if (item.ID == ViewBag.StudentID)
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @item.SureName
+                </td>
+                <td>
+                    @item.FirstName
+                </td>
+                <td>
+                    @item.BirthDate
+                </td>
+                <td>
+                    @Html.ActionLink("Remove from group", "Index", new { studentID = item.ID })
+                </td>
+            </tr>
+        }
+
+    </table>
+}

@@ -173,6 +173,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudentGroupController - Copy.cs" />
     <Compile Include="Controllers\StudentGroupController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\TestTemplateController.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="Models\ThematicField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\StudentGroupIndexData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -308,11 +310,11 @@
     <Content Include="Views\ThematicField\Details.cshtml" />
     <Content Include="Views\ThematicField\Edit.cshtml" />
     <Content Include="Views\ThematicField\Index.cshtml" />
-    <Content Include="Views\StudentGroup\Create.cshtml" />
-    <Content Include="Views\StudentGroup\Delete.cshtml" />
-    <Content Include="Views\StudentGroup\Details.cshtml" />
-    <Content Include="Views\StudentGroup\Edit.cshtml" />
-    <Content Include="Views\StudentGroup\Index.cshtml" />
+    <Content Include="Views\StudentGroup-Copy\Create.cshtml" />
+    <Content Include="Views\StudentGroup-Copy\Delete.cshtml" />
+    <Content Include="Views\StudentGroup-Copy\Details.cshtml" />
+    <Content Include="Views\StudentGroup-Copy\Edit.cshtml" />
+    <Content Include="Views\StudentGroup-Copy\Index.cshtml" />
     <Content Include="Views\TestTemplate\Create.cshtml" />
     <Content Include="Views\TestTemplate\Delete.cshtml" />
     <Content Include="Views\TestTemplate\Details.cshtml" />
@@ -328,6 +330,11 @@
     <Content Include="Views\Question\Details.cshtml" />
     <Content Include="Views\Question\Edit.cshtml" />
     <Content Include="Views\Question\Index.cshtml" />
+    <Content Include="Views\StudentGroup\Create.cshtml" />
+    <Content Include="Views\StudentGroup\Delete.cshtml" />
+    <Content Include="Views\StudentGroup\Details.cshtml" />
+    <Content Include="Views\StudentGroup\Edit.cshtml" />
+    <Content Include="Views\StudentGroup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

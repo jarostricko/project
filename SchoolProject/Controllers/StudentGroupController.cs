@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SchoolProject.DAL;
 using SchoolProject.Models;
+using SchoolProject.ViewModels;
 
 namespace SchoolProject.Controllers
 {
@@ -16,24 +17,46 @@ namespace SchoolProject.Controllers
         private SchoolProjectContext db = new SchoolProjectContext();
 
         // GET: StudentGroup
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string searchString, int? id, int? studentID)
         {
-            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
-            var groups = db.StudentGroups.ToList();
-            if (!String.IsNullOrEmpty(searchString))
+
+            var viewModel = new StudentGroupIndexData();
+            viewModel.StudentGroups = db.StudentGroups.
+                Include(i => i.Students).
+                OrderBy(i => i.Title);
+            if (id != null)
             {
-                groups = groups.Where(s => s.Title.Contains(searchString)).ToList();
+                ViewBag.StudentGroupID = id.Value;
+                viewModel.Students = viewModel.StudentGroups.Where(
+                    i => i.StudentGroupID == id.Value).Single().Students;
             }
-            switch (sortOrder)
+
+            if (studentID != null)
             {
-                case "title_desc":
-                    groups = groups.OrderByDescending(s => s.Title).ToList();
-                    break;
-                default:
-                    groups = groups.OrderBy(s => s.Title).ToList();
-                    break;
+                Student student = db.Students.Find(studentID);
+                StudentGroup studentGroup = db.StudentGroups.Find(id);
+                studentGroup.Students.Remove(student);
+                db.SaveChanges();
+
             }
-            return View(groups.ToList());
+            return View(viewModel);
+
+            //ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            //var groups = db.StudentGroups.ToList();
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    groups = groups.Where(s => s.Title.Contains(searchString)).ToList();
+            //}
+            //switch (sortOrder)
+            //{
+            //    case "title_desc":
+            //        groups = groups.OrderByDescending(s => s.Title).ToList();
+            //        break;
+            //    default:
+            //        groups = groups.OrderBy(s => s.Title).ToList();
+            //        break;
+            //}
+            //return View(groups.ToList());
         }
 
         // GET: StudentGroup/Details/5
@@ -161,6 +184,6 @@ namespace SchoolProject.Controllers
             }
             base.Dispose(disposing);
         }
-
+        
     }
 }
