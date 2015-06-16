@@ -1,0 +1,44 @@
+﻿@model SchoolProject.ViewModels.StudentGroupIndexData
+
+@{
+    ViewBag.Title = "Studen Group";
+}
+
+<h2>Add a student</h2>
+
+<div>
+    <h4>Add a student to student group</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>First name</th>
+                    <th>Sure name</th>
+                    <th>Birthdate</th>
+                </tr>
+                @foreach (var item in Model.Students)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SureName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BirthDate)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Add", "AddStudent", new { studentID = item.ID , id = Model.StudentGroup.StudentGroupID})
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

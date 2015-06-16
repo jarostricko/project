@@ -17,6 +17,24 @@ namespace SchoolProject.Migrations
 
         protected override void Seed(SchoolProject.DAL.SchoolProjectContext context)
         {/*
+            var students = new List<Student>
+            {
+                new Student {FirstName = "Test", SureName = "Test1", BirthDate = DateTime.Parse("2005-09-01")},
+                new Student {FirstName = "Test", SureName = "Test2", BirthDate = DateTime.Parse("2002-09-01")},
+                new Student {FirstName = "Test", SureName = "Test3", BirthDate = DateTime.Parse("2003-09-01")},
+                new Student {FirstName = "Test", SureName = "Test4", BirthDate = DateTime.Parse("2002-09-01")},
+                
+            };
+            students.ForEach(s => context.Students.AddOrUpdate(p => p.SureName, s));
+            context.SaveChanges();
+
+            var studentGroups = new List<StudentGroup>
+            {
+                new StudentGroup {Title = "GroupS", Students = students}
+            };
+            studentGroups.ForEach(s => context.StudentGroups.AddOrUpdate(p => p.Title, s));
+            context.SaveChanges();
+            
             //STUDENTS
             var students = new List<Student>
             {

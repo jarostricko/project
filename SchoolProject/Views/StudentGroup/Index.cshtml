@@ -1,8 +1,8 @@
 ﻿@model SchoolProject.ViewModels.StudentGroupIndexData
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Student Groups";
 }
-<h2>Index</h2>
+<h2>Student Groups</h2>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -16,7 +16,7 @@
 <table class="table">
     <tr>
         <th>
-            Title
+            @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm })
         </th>
         <th></th>
     </tr>
@@ -32,10 +32,11 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.ActionLink("Students", "Index", new {id = item.StudentGroupID}) |
+                @Html.ActionLink("Students", "Index", new { id = item.StudentGroupID}) |
                 @Html.ActionLink("Edit", "Edit", new {id = item.StudentGroupID}) |
                 @Html.ActionLink("Details", "Details", new {id = item.StudentGroupID}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.StudentGroupID})
+                @Html.ActionLink("Delete", "Delete", new { id = item.StudentGroupID}) |
+                @Html.ActionLink("Add a student", "AddStudent", new { id = item.StudentGroupID})
             </td>
         </tr>
     }

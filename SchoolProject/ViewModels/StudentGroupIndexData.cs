@@ -8,6 +8,7 @@ namespace SchoolProject.ViewModels
 {
     public class StudentGroupIndexData
     {
+        public StudentGroup StudentGroup { get; set; }
         public IEnumerable<StudentGroup> StudentGroups { get; set; }
         public IEnumerable<Student> Students { get; set; }
     }

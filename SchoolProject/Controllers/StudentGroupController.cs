@@ -19,17 +19,54 @@ namespace SchoolProject.Controllers
         // GET: StudentGroup
         public ActionResult Index(string sortOrder, string searchString, int? id, int? studentID)
         {
-
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             var viewModel = new StudentGroupIndexData();
             viewModel.StudentGroups = db.StudentGroups.
                 Include(i => i.Students).
                 OrderBy(i => i.Title);
-            if (id != null)
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                viewModel.StudentGroups = db.StudentGroups.
+                Where(s => s.Title.Contains(searchString)).
+                Include(i => i.Students).
+                OrderBy(i => i.Title);
+            }
+            if (id != null && String.IsNullOrEmpty(searchString))
             {
                 ViewBag.StudentGroupID = id.Value;
                 viewModel.Students = viewModel.StudentGroups.Where(
                     i => i.StudentGroupID == id.Value).Single().Students;
             }
+            if (id != null && !String.IsNullOrEmpty(searchString))
+            {
+                try
+                {
+                    ViewBag.StudentGroupID = id.Value;
+                    viewModel.Students = viewModel.StudentGroups.Where(s => s.Title.Contains(searchString)).
+                        Where(i => i.StudentGroupID == id.Value).Single().Students;
+                }
+                catch (InvalidOperationException)
+                {
+                    
+                    ViewBag.StudentGroupID = id.Value;
+                    viewModel.Students = null;
+                }
+                
+            }
+            
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    viewModel.StudentGroups = viewModel.StudentGroups.
+                OrderByDescending(i => i.Title);
+                    break;
+                default:
+                    viewModel.StudentGroups = viewModel.StudentGroups.
+                OrderBy(i => i.Title);
+                    break;
+            }
+            
 
             if (studentID != null)
             {
@@ -184,6 +221,26 @@ namespace SchoolProject.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult AddStudent(int id, int? studentID)
+        {
+            if (studentID != null)
+            {
+                StudentGroup studentGroup = db.StudentGroups.Find(id);
+                Student student = db.Students.Find(studentID);
+                studentGroup.Students.Add(student);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Student = db.Students;
+            var viewModel = new StudentGroupIndexData();
+            viewModel.StudentGroup = db.StudentGroups.
+                Find(id);
+            viewModel.Students = db.Students.OrderBy(i => i.SureName);
+            return View(viewModel);
+        }
+
         
     }
 }
