@@ -72,6 +72,7 @@ namespace SchoolProject.Migrations
                     Text = "Kolko noh ma pavuk?",
                     Explanation = "Pavuk ma 8 noh lebo je mimozemstan",
                     Points = 5,
+                    //AnswerList = new List<Answer>(),
                     ThematicFieldID = 1
                 },
                 new Question
@@ -79,6 +80,7 @@ namespace SchoolProject.Migrations
                     Text = "Kde je Slovensko?",
                     Explanation = "Slovensko je v Europe",
                     Points = 3,
+                    //AnswerList = new List<Answer>(),
                     ThematicFieldID = 2
                 }
             };
