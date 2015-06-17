@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 
@@ -16,11 +17,24 @@ namespace SchoolProject.Controllers
         private SchoolProjectContext db = new SchoolProjectContext();
 
         // GET: Teacher
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
             ViewBag.FirstNameSortParm = sortOrder == "FirstName" ? "firstName_desc" : "FirstName";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
             var teachers = from s in db.Teachers
                            select s;
             if (!String.IsNullOrEmpty(searchString))
@@ -49,7 +63,9 @@ namespace SchoolProject.Controllers
                     teachers = teachers.OrderBy(s => s.SureName);
                     break;
             }
-            return View(teachers.ToList());
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(teachers.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Teacher/Details/5
