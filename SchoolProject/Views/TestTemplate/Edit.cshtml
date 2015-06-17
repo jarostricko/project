@@ -1,22 +1,18 @@
 ﻿@model SchoolProject.Models.TestTemplate
-
 @{
     ViewBag.Title = "Edit";
 }
-
 <h2>Edit</h2>
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>TestTemplate</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.TestTemplateID)
-
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -24,7 +20,6 @@
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Time, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -32,7 +27,6 @@
                 @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -40,7 +34,6 @@
                 @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -48,7 +41,6 @@
                 @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.QuestionCount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -58,25 +50,57 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.StudentGroupID, "StudentGroupID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.StudentGroupID, "StudentGroupID", htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.DropDownList("StudentGroupID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.StudentGroupID, "", new { @class = "text-danger" })
+                @Html.DropDownList("StudentGroupID", null, htmlAttributes: new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.StudentGroupID, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+                <table>
+                    <tr>
+                        @{
+                            int cnt = 0;
+                            List<SchoolProject.ViewModels.FieldsTemplatesData> fields = ViewBag.ThematicFields;
+
+                            foreach (var field in fields)
+                            {
+                                if (cnt++ % 3 == 0)
+                                {
+                                    @:</tr><tr>
+                                }
+
+                                @:<td>
+                                    <input type="checkbox"
+                                           name="selectedFields"
+                                           value="@field.ThematicFieldID"
+                                           @(Html.Raw(field.Assigned ? "checked=\"checked\"" : "")) />
+                                            @field.ThematicFieldID<text> @field.Title</text>
+                                @:</td>
+                                }
+                                @:</tr>
+                        }
+
+            </table>
         </div>
     </div>
+
+
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Save" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+                        <div>
+                            @Html.ActionLink("Back to List", "Index")
+                        </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+                        @section Scripts {
+                            @Scripts.Render("~/bundles/jqueryval")
+                        }

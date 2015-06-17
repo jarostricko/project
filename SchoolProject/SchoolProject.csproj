@@ -223,6 +223,14 @@
     <Compile Include="Migrations\201506160804326_questionValid.Designer.cs">
       <DependentUpon>201506160804326_questionValid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506171230564_templateFields.cs" />
+    <Compile Include="Migrations\201506171230564_templateFields.Designer.cs">
+      <DependentUpon>201506171230564_templateFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506171331504_templateFields1.cs" />
+    <Compile Include="Migrations\201506171331504_templateFields1.Designer.cs">
+      <DependentUpon>201506171331504_templateFields1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -236,6 +244,7 @@
     <Compile Include="Models\ThematicField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\FieldsTemplatesData.cs" />
     <Compile Include="ViewModels\StudentGroupIndexData.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -377,6 +386,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506160804326_questionValid.resx">
       <DependentUpon>201506160804326_questionValid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506171230564_templateFields.resx">
+      <DependentUpon>201506171230564_templateFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506171331504_templateFields1.resx">
+      <DependentUpon>201506171331504_templateFields1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SchoolProject.DAL;
 using SchoolProject.Models;
+using SchoolProject.ViewModels;
 
 namespace SchoolProject.Controllers
 {
@@ -94,6 +96,9 @@ namespace SchoolProject.Controllers
         // GET: TestTemplate/Create
         public ActionResult Create()
         {
+            var testTemplate = new TestTemplate();
+            testTemplate.ThematicFields = new List<ThematicField>();
+            PopulateAssignedFieldData(testTemplate);
             ViewBag.StudentGroupID = new SelectList(db.StudentGroups, "StudentGroupID", "Title");
             return View();
         }
@@ -103,8 +108,17 @@ namespace SchoolProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Time,StartTime,EndTime,QuestionCount,StudentGroupID")] TestTemplate testTemplate)
+        public ActionResult Create([Bind(Include = "Name,Time,StartTime,EndTime,QuestionCount,StudentGroupID")] TestTemplate testTemplate, string[] selectedFields)
         {
+            if (selectedFields != null)
+            {
+                testTemplate.ThematicFields = new List<ThematicField>();
+                foreach (var field in selectedFields)
+                {
+                    var fieldToAdd = db.ThematicFields.Find(int.Parse(field));
+                    testTemplate.ThematicFields.Add(fieldToAdd);
+                }
+            }
             try
             {
                 if (ModelState.IsValid)
@@ -119,8 +133,26 @@ namespace SchoolProject.Controllers
                 //Log the error (uncomment dex variable name and add a line here to write a log.
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
+            PopulateAssignedFieldData(testTemplate);
             ViewBag.StudentGroupID = new SelectList(db.StudentGroups, "StudentGroupID", "Title", testTemplate.StudentGroupID);
             return View(testTemplate);
+        }
+
+        private void PopulateAssignedFieldData(TestTemplate testTemplate)
+        {
+            var allFields = db.ThematicFields;
+            var templateFields = new HashSet<int>(testTemplate.ThematicFields.Select(c => c.ThematicFieldID));
+            var viewModel = new List<FieldsTemplatesData>();
+            foreach (var field in allFields)
+            {
+                viewModel.Add(new FieldsTemplatesData
+                {
+                    ThematicFieldID = field.ThematicFieldID,
+                    Title = field.Title,
+                    Assigned = templateFields.Contains(field.ThematicFieldID)
+                });
+            }
+            ViewBag.ThematicFields = viewModel;
         }
 
         // GET: TestTemplate/Edit/5
@@ -131,6 +163,7 @@ namespace SchoolProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             TestTemplate testTemplate = db.TestTemplates.Find(id);
+            PopulateAssignedFieldData(testTemplate);
             if (testTemplate == null)
             {
                 return HttpNotFound();
@@ -144,16 +177,61 @@ namespace SchoolProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TestTemplateID,Name,Time,StartTime,EndTime,QuestionCount,StudentGroupID")] TestTemplate testTemplate)
+        public ActionResult Edit([Bind(Include = "TestTemplateID,Name,Time,StartTime,EndTime,QuestionCount,StudentGroupID")] TestTemplate testTemplate, string[] selectedFields)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(testTemplate).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+
+                    UpdateTemplateFields(selectedFields, testTemplate);
+                    db.Entry(testTemplate).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+            catch (RetryLimitExceededException)
+            {
+
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+            PopulateAssignedFieldData(testTemplate);
             ViewBag.StudentGroupID = new SelectList(db.StudentGroups, "StudentGroupID", "Title", testTemplate.StudentGroupID);
             return View(testTemplate);
+        }
+
+        private void UpdateTemplateFields(string[] selectedFields, TestTemplate testTemplate)
+        {
+            if (selectedFields == null)
+            {
+                testTemplate.ThematicFields = new List<ThematicField>();
+                return;
+            }
+
+
+
+            var selectedFieldsHS = new HashSet<string>(selectedFields);
+            //var templateFields = new HashSet<int>
+                ///(testTemplate.ThematicFields.Select(c => c.ThematicFieldID));
+            foreach (var field in db.ThematicFields)
+            {
+                if (selectedFieldsHS.Contains(field.ThematicFieldID.ToString()))
+                {
+                    testTemplate.ThematicFields.Add(field);
+                    //if (!templateFields.Contains(field.ThematicFieldID))
+                    //{
+                        
+                    //}
+                }
+                else
+                {
+                    testTemplate.ThematicFields.Remove(field);
+                    //if (templateFields.Contains(field.ThematicFieldID))
+                    //{
+                        
+                    //}
+                }
+            }
         }
 
         // GET: TestTemplate/Delete/5

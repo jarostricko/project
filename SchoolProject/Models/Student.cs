@@ -3,17 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using SchoolProject.Models;
 
 namespace SchoolProject.Models
 {
-    public class Student
+    public class Student //: Models.ApplicationUser
     {
-        /*
-        public int ID { get; set; }
-        public string SureName { get; set; }
-        public string FirstName { get; set; }
-        public DateTime BirthDate { get; set; }
-        public virtual List<StudentGroup> StudentGroups { get; set; } */
 
         public int ID { get; set; }
         [Required]
