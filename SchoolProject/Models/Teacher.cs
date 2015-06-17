@@ -8,12 +8,6 @@ namespace SchoolProject.Models
 {
     public class Teacher
     {
-        /*
-        public int ID { get; set; }
-        public string SureName { get; set; }
-        public string FirstName { get; set; }
-        public DateTime BirthDate { get; set; }
-        */
         public int ID { get; set; }
         [Required]
         [Display(Name = "Last Name")]
