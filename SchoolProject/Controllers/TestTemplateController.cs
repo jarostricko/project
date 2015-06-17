@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 using SchoolProject.ViewModels;
+using WebGrease.Activities;
 
 namespace SchoolProject.Controllers
 {
@@ -123,6 +124,7 @@ namespace SchoolProject.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    GenerateRandomQuestions(testTemplate);
                     db.TestTemplates.Add(testTemplate);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -291,6 +293,22 @@ namespace SchoolProject.Controllers
             db.TestTemplates.Remove(testTemplate);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public void GenerateRandomQuestions(TestTemplate testTemplate)
+        {
+            var thematicFields = testTemplate.ThematicFields;
+            var questions = db.Questions;
+            List<Question> toChoose = new List<Question>(); 
+            foreach (var question in questions)
+            {
+                if (thematicFields.Contains(question.ThematicField))
+                {
+                    toChoose.Add(question);
+                }
+            }
+            testTemplate.Questions = toChoose.ToList();
+
         }
 
         protected override void Dispose(bool disposing)

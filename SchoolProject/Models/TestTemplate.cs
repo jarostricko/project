@@ -25,6 +25,35 @@ namespace SchoolProject.Models
         public virtual List<Question> Questions { get; set; }
         public virtual List<ThematicField> ThematicFields { get; set; }
         
-
+        //public List<Question> GetTestQuestions()
+        //{
+        //    List<Question> listOfAll = new List<Question>();
+        //    List<Question> list = new List<Question>();
+        //    Random rnd = new Random();
+        //    foreach (var field in this.ThematicFields)
+        //    {
+        //        foreach (var question in field.Questions)
+        //        {
+        //            listOfAll.Add(question);
+        //        }
+        //    }
+        //    int qustionNumber = listOfAll.Count;
+        //    int number;
+        //    if (listOfAll.Count < this.NumberOfQuestions)
+        //    {
+        //        return null;
+        //    }
+        //    for (int i = 0; i < this.NumberOfQuestions; i++)
+        //    {
+        //        number = rnd.Next(1, qustionNumber);
+        //        while(list.Contains(listOfAll[number]))
+        //        {
+        //           number = rnd.Next(1, qustionNumber);
+        //        }
+        //        list.Add(listOfAll[number]);
+        //    }
+        //        return list;
+        //}
+    
     }
 }
