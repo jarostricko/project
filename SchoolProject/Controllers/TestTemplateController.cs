@@ -177,28 +177,61 @@ namespace SchoolProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TestTemplateID,Name,Time,StartTime,EndTime,QuestionCount,StudentGroupID")] TestTemplate testTemplate, string[] selectedFields)
+        public ActionResult Edit(int? id, string[] selectedFields)
         {
-            try
+            if (id == null)
             {
-                if (ModelState.IsValid)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var templateToUpdate = db.TestTemplates
+               .Include(i => i.StudentGroup)
+               .Include(i => i.ThematicFields)
+               .Where(i => i.TestTemplateID == id)
+               .Single();
+
+            if (TryUpdateModel(templateToUpdate, "",
+                new string[] { "TestTemplateID", "Name", "Time", "StartTime", "EndTime", "QuestionCount", "StudentGroupID" }))
+            {
+                try
                 {
 
-                    UpdateTemplateFields(selectedFields, testTemplate);
-                    db.Entry(testTemplate).State = EntityState.Modified;
+                    UpdateTemplateFields(selectedFields, templateToUpdate);
+
                     db.SaveChanges();
+
                     return RedirectToAction("Index");
                 }
+                catch (RetryLimitExceededException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
             }
-            catch (RetryLimitExceededException)
-            {
-
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-            }
-            PopulateAssignedFieldData(testTemplate);
-            ViewBag.StudentGroupID = new SelectList(db.StudentGroups, "StudentGroupID", "Title", testTemplate.StudentGroupID);
-            return View(testTemplate);
+            PopulateAssignedFieldData(templateToUpdate);
+            return View(templateToUpdate);
         }
+        //public ActionResult Edit([Bind(Include = "TestTemplateID,Name,Time,StartTime,EndTime,QuestionCount,StudentGroupID")] TestTemplate testTemplate, string[] selectedFields)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+
+        //            UpdateTemplateFields(selectedFields, testTemplate);
+        //            db.Entry(testTemplate).State = EntityState.Modified;
+        //            db.SaveChanges();
+        //            return RedirectToAction("Index");
+        //        }
+        //    }
+        //    catch (RetryLimitExceededException)
+        //    {
+
+        //        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+        //    }
+        //    PopulateAssignedFieldData(testTemplate);
+        //    ViewBag.StudentGroupID = new SelectList(db.StudentGroups, "StudentGroupID", "Title", testTemplate.StudentGroupID);
+        //    return View(testTemplate);
+        //}
 
         private void UpdateTemplateFields(string[] selectedFields, TestTemplate testTemplate)
         {
@@ -211,25 +244,25 @@ namespace SchoolProject.Controllers
 
 
             var selectedFieldsHS = new HashSet<string>(selectedFields);
-            //var templateFields = new HashSet<int>
-                ///(testTemplate.ThematicFields.Select(c => c.ThematicFieldID));
+            var templateFields = new HashSet<int>
+                (testTemplate.ThematicFields.Select(c => c.ThematicFieldID));
             foreach (var field in db.ThematicFields)
             {
                 if (selectedFieldsHS.Contains(field.ThematicFieldID.ToString()))
                 {
-                    testTemplate.ThematicFields.Add(field);
-                    //if (!templateFields.Contains(field.ThematicFieldID))
-                    //{
-                        
-                    //}
+                    
+                    if (!templateFields.Contains(field.ThematicFieldID))
+                    {
+                        testTemplate.ThematicFields.Add(field);
+                    }
                 }
                 else
                 {
-                    testTemplate.ThematicFields.Remove(field);
-                    //if (templateFields.Contains(field.ThematicFieldID))
-                    //{
-                        
-                    //}
+                    if (templateFields.Contains(field.ThematicFieldID))
+                    {
+
+                        testTemplate.ThematicFields.Remove(field);
+                    }
                 }
             }
         }
