@@ -95,7 +95,7 @@
                             @Html.DisplayFor(modelItem => item.Points)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ThematicField)
+                            @Html.DisplayFor(modelItem => item.ThematicField.Title)
                         </td>
                     </tr>
                 }
@@ -105,6 +105,8 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TestTemplateID }) |
+    @Html.ActionLink("Edit", "Edit", new {id = Model.TestTemplateID}) |
+    @Html.ActionLink("Refresh questions", "Refresh", new {id = Model.TestTemplateID}) |
     @Html.ActionLink("Back to List", "Index")
+    
 </p>

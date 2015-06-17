@@ -8,11 +8,6 @@ namespace SchoolProject.Models
 {
     public class ThematicField
     {
-        /*
-        public int ThematicFieldID { get; set; }
-        public string Title { get; set; }
-        public virtual List<TestTemplate> TestTemplates { get; set; }
-        */
         public int ThematicFieldID { get; set; }
         [Required]
         [Display(Name = "Thematic Field Title")]

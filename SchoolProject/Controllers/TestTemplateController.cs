@@ -124,7 +124,7 @@ namespace SchoolProject.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    GenerateRandomQuestions(testTemplate);
+                    GenerateRandomQuestions(testTemplate,false);
                     db.TestTemplates.Add(testTemplate);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -198,6 +198,7 @@ namespace SchoolProject.Controllers
                 {
 
                     UpdateTemplateFields(selectedFields, templateToUpdate);
+                    GenerateRandomQuestions(templateToUpdate,false);
 
                     db.SaveChanges();
 
@@ -295,11 +296,32 @@ namespace SchoolProject.Controllers
             return RedirectToAction("Index");
         }
 
-        public void GenerateRandomQuestions(TestTemplate testTemplate)
+        public void GenerateRandomQuestions(TestTemplate testTemplate, bool refresh)
         {
+            if (refresh)
+            {
+                testTemplate.Questions.Clear();
+                testTemplate.Questions = null;
+                db.SaveChanges();
+            }
+            else if (testTemplate.Questions != null)
+            {
+                if (testTemplate.QuestionCount == testTemplate.Questions.Count)
+                {
+                    return;
+                }
+                testTemplate.Questions.Clear();
+                testTemplate.Questions = null;
+                db.SaveChanges();
+            }
+            
+            
             var thematicFields = testTemplate.ThematicFields;
-            var questions = db.Questions;
-            List<Question> toChoose = new List<Question>(); 
+            var questions = db.Questions.ToList();
+            List<Question> list = new List<Question>();
+            List<Question> toChoose = new List<Question>();
+            Random rnd = new Random();
+            int number;
             foreach (var question in questions)
             {
                 if (thematicFields.Contains(question.ThematicField))
@@ -307,7 +329,23 @@ namespace SchoolProject.Controllers
                     toChoose.Add(question);
                 }
             }
-            testTemplate.Questions = toChoose.ToList();
+
+            if (toChoose.Count <= testTemplate.QuestionCount)
+            {
+                testTemplate.Questions = toChoose.ToList();
+                return;
+            }
+            for (int i = 0; i < testTemplate.QuestionCount; i++)
+            {
+                number = rnd.Next(0, toChoose.Count);
+                while (list.Contains(toChoose[number]))
+                {
+                    number = rnd.Next(0, toChoose.Count);
+                }
+                list.Add(toChoose[number]);
+            }
+
+            testTemplate.Questions = list;
 
         }
 
@@ -318,6 +356,23 @@ namespace SchoolProject.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Refresh(int id)
+        {
+            try
+            {
+
+                TestTemplate testTemplate = db.TestTemplates.Find(id);
+                GenerateRandomQuestions(testTemplate, true);
+                db.SaveChanges();
+                
+            }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+            return RedirectToAction("Details", new { id = id });
         }
     }
 }
