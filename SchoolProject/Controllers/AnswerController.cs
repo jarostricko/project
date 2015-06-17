@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -16,8 +17,12 @@ namespace SchoolProject.Controllers
         private SchoolProjectContext db = new SchoolProjectContext();
 
         // GET: Answer
-        public ActionResult Index()
+        public ActionResult Index(int? question)
         {
+            if (question != null)
+            {
+                return RedirectToAction("Details", "Question", new {id = question});
+            }
             var answers = db.Answers.Include(a => a.Question);
             return View(answers.ToList());
         }
@@ -82,7 +87,7 @@ namespace SchoolProject.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.QuestionID = new SelectList(db.Questions, "QuestionID", "Text", answer.QuestionID);
+            ViewBag.QuestionID = new SelectList(db.Questions, "QuestionID", "Text", answer.QuestionID); 
             return View(answer);
         }
 
@@ -97,9 +102,10 @@ namespace SchoolProject.Controllers
             {
                 db.Entry(answer).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Question", new { id = answer.QuestionID });
             }
-            ViewBag.QuestionID = new SelectList(db.Questions, "QuestionID", "Text", answer.QuestionID);
+
+            ViewBag.QuestionID = new SelectList(db.Questions, "QuestionID", "Text", answer.QuestionID); 
             return View(answer);
         }
 

@@ -107,8 +107,12 @@ namespace SchoolProject.Controllers
         }
 
         // GET: Question/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int? answerID)
         {
+            if (answerID != null)
+            {
+                return RedirectToAction("Edit", "Answer",new { id = answerID} );
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
