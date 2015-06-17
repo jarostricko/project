@@ -43,9 +43,19 @@ namespace SchoolProject.Controllers
         }
 
         // GET: Answer/Create
-        public ActionResult Create()
+        public ActionResult Create(int? questionID)
         {
-            ViewBag.QuestionID = new SelectList(db.Questions, "QuestionID", "Text");
+            if (questionID != null)
+            {
+                List<Question> questions = new List<Question>();
+                questions.Add(db.Questions.Find(questionID));
+                ViewBag.QuestionID = new SelectList(questions, "QuestionID", "Text");
+            }
+            else
+            {
+                ViewBag.QuestionID = new SelectList(db.Questions, "QuestionID", "Text");
+            }
+            
             return View();
         }
 
@@ -62,7 +72,7 @@ namespace SchoolProject.Controllers
                 {
                     db.Answers.Add(answer);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details", "Question", new { id = answer.QuestionID });
                 }
             }
             catch (DataException /* dex */)
@@ -104,7 +114,7 @@ namespace SchoolProject.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Details", "Question", new { id = answer.QuestionID });
             }
-
+            ViewBag.Question = answer.QuestionID;
             ViewBag.QuestionID = new SelectList(db.Questions, "QuestionID", "Text", answer.QuestionID); 
             return View(answer);
         }
@@ -121,6 +131,7 @@ namespace SchoolProject.Controllers
                 ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
             }
             Answer answer = db.Answers.Find(id);
+            ViewBag.Question = answer.QuestionID;
             if (answer == null)
             {
                 return HttpNotFound();
@@ -133,9 +144,10 @@ namespace SchoolProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            Answer answer = db.Answers.Find(id);
             try
             {
-                Answer answer = db.Answers.Find(id);
+                
                 db.Answers.Remove(answer);
                 db.SaveChanges();
             }
@@ -144,8 +156,8 @@ namespace SchoolProject.Controllers
                 //Log the error (uncomment dex variable name and add a line here to write a log.
                 return RedirectToAction("Delete", new { id = id, saveChangesError = true });
             }
-            
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Details", "Question", new { id = answer.QuestionID });
         }
 
         protected override void Dispose(bool disposing)

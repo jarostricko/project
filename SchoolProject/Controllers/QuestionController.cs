@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 
@@ -144,8 +145,12 @@ namespace SchoolProject.Controllers
         }
 
         // GET: Question/Delete/5
-        public ActionResult Delete(int? id, bool? saveChangesError = false)
+        public ActionResult Delete(int? id, int? answerID , bool? saveChangesError = false )
         {
+            if (answerID != null)
+            {
+                return RedirectToAction("Delete", "Answer", new {id = answerID});
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -188,6 +193,11 @@ namespace SchoolProject.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Add(int questionID)
+        {
+            return RedirectToAction("Create","Answer",new {questionID = questionID});
         }
     }
 }
