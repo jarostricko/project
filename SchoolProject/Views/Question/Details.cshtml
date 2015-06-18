@@ -49,8 +49,7 @@
                 <tr>
                     <th>Text</th>
                     <th>Is Correct</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th></th>
                 </tr>
                 @foreach (var item in Model.AnswersList)
                 {
@@ -62,10 +61,11 @@
                             @Html.DisplayFor(modelItem => item.IsCorrect)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new {answerID = item.AnswerID})
+                            @Html.ActionLink("Edit", "Edit", new {answerID = item.AnswerID}) | 
+                            @Html.ActionLink("Delete", "Delete", new { answerID = item.AnswerID })
                         </td>
                         <td>
-                            @Html.ActionLink("Delete", "Delete", new { answerID = item.AnswerID })
+                            
                         </td>
                     </tr>
                 }

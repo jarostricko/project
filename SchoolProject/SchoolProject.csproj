@@ -183,54 +183,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201506131324434_InitialCreate.cs" />
-    <Compile Include="Migrations\201506131324434_InitialCreate.Designer.cs">
-      <DependentUpon>201506131324434_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506131746520_Init.cs" />
-    <Compile Include="Migrations\201506131746520_Init.Designer.cs">
-      <DependentUpon>201506131746520_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506160729255_noSeed.cs" />
-    <Compile Include="Migrations\201506160729255_noSeed.Designer.cs">
-      <DependentUpon>201506160729255_noSeed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506160734135_groupValid.cs" />
-    <Compile Include="Migrations\201506160734135_groupValid.Designer.cs">
-      <DependentUpon>201506160734135_groupValid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506160736352_studentValid.cs" />
-    <Compile Include="Migrations\201506160736352_studentValid.Designer.cs">
-      <DependentUpon>201506160736352_studentValid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506160739568_teacherValid.cs" />
-    <Compile Include="Migrations\201506160739568_teacherValid.Designer.cs">
-      <DependentUpon>201506160739568_teacherValid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506160747233_answerValid.cs" />
-    <Compile Include="Migrations\201506160747233_answerValid.Designer.cs">
-      <DependentUpon>201506160747233_answerValid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506160749419_fieldValid.cs" />
-    <Compile Include="Migrations\201506160749419_fieldValid.Designer.cs">
-      <DependentUpon>201506160749419_fieldValid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506160752188_templateValid.cs" />
-    <Compile Include="Migrations\201506160752188_templateValid.Designer.cs">
-      <DependentUpon>201506160752188_templateValid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506160804326_questionValid.cs" />
-    <Compile Include="Migrations\201506160804326_questionValid.Designer.cs">
-      <DependentUpon>201506160804326_questionValid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506171230564_templateFields.cs" />
-    <Compile Include="Migrations\201506171230564_templateFields.Designer.cs">
-      <DependentUpon>201506171230564_templateFields.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506171331504_templateFields1.cs" />
-    <Compile Include="Migrations\201506171331504_templateFields1.Designer.cs">
-      <DependentUpon>201506171331504_templateFields1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -355,44 +307,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506131324434_InitialCreate.resx">
-      <DependentUpon>201506131324434_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506131746520_Init.resx">
-      <DependentUpon>201506131746520_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506160729255_noSeed.resx">
-      <DependentUpon>201506160729255_noSeed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506160734135_groupValid.resx">
-      <DependentUpon>201506160734135_groupValid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506160736352_studentValid.resx">
-      <DependentUpon>201506160736352_studentValid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506160739568_teacherValid.resx">
-      <DependentUpon>201506160739568_teacherValid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506160747233_answerValid.resx">
-      <DependentUpon>201506160747233_answerValid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506160749419_fieldValid.resx">
-      <DependentUpon>201506160749419_fieldValid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506160752188_templateValid.resx">
-      <DependentUpon>201506160752188_templateValid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506160804326_questionValid.resx">
-      <DependentUpon>201506160804326_questionValid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506171230564_templateFields.resx">
-      <DependentUpon>201506171230564_templateFields.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506171331504_templateFields1.resx">
-      <DependentUpon>201506171331504_templateFields1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
