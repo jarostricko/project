@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using SchoolProject.CustomFilters;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 
@@ -52,6 +53,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: ThematicField/Create
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Create()
         {
             return View();

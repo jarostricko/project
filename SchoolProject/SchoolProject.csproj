@@ -178,6 +178,7 @@
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\TestTemplateController.cs" />
     <Compile Include="Controllers\ThematicFieldController.cs" />
+    <Compile Include="CustomFilters\AuthLogAttribute.cs" />
     <Compile Include="DAL\SchoolProjectContext.cs" />
     <Compile Include="DAL\SchoolProjectInitializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -324,6 +325,7 @@
     <Content Include="Views\Account\RegisterStudent.cshtml" />
     <None Include="Views\Role\Create.cshtml" />
     <None Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Shared\AuthorizeFailed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

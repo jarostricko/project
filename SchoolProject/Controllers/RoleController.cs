@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using SchoolProject.DAL;
 //using A11_RBS.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using SchoolProject.CustomFilters;
 
 namespace SchoolProject.Controllers
 {
@@ -34,6 +35,7 @@ namespace SchoolProject.Controllers
         /// Create  a New role
         /// </summary>
         /// <returns></returns>
+        
         public ActionResult Create()
         {
             var Role = new IdentityRole();
