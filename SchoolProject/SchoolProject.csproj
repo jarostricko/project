@@ -207,6 +207,10 @@
     <Compile Include="Migrations\201506181549148_teacher2.Designer.cs">
       <DependentUpon>201506181549148_teacher2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506181631268_userBool.cs" />
+    <Compile Include="Migrations\201506181631268_userBool.Designer.cs">
+      <DependentUpon>201506181631268_userBool.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -351,6 +355,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506181549148_teacher2.resx">
       <DependentUpon>201506181549148_teacher2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506181631268_userBool.resx">
+      <DependentUpon>201506181631268_userBool.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

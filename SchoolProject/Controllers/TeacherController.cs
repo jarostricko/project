@@ -34,7 +34,6 @@ namespace SchoolProject.Controllers
             }
 
             ViewBag.CurrentFilter = searchString;
-
             var teachers = from s in db.Teachers
                            select s;
             if (!String.IsNullOrEmpty(searchString))

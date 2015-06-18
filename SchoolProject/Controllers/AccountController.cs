@@ -180,7 +180,7 @@ namespace SchoolProject.Controllers
         }
 
         //
-        // POST: /Account/Register
+        // POST: /Account/RegisterTeacher
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -191,6 +191,7 @@ namespace SchoolProject.Controllers
                 var user = new Teacher { UserName = model.Email, Email = model.Email,
                     SureName = model.SureName,FirstName = model.FirstName};
                 user.BirthDate = model.BirthDate.ToUniversalTime();
+                user.IsTeacher = true;
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -242,6 +243,7 @@ namespace SchoolProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 var user = await UserManager.FindByNameAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
