@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using SchoolProject.DAL;
 using SchoolProject.Models;
 
 namespace SchoolProject.Controllers
@@ -17,9 +18,10 @@ namespace SchoolProject.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private SchoolProjectContext projectContext;
         public AccountController()
         {
+            projectContext = new SchoolProjectContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -139,6 +141,7 @@ namespace SchoolProject.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.Name = new SelectList(projectContext.Roles.ToList(), "Name", "Name");
             return View();
         }
 
@@ -155,6 +158,10 @@ namespace SchoolProject.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //Assign Role to user Here 
+                    await this.UserManager.AddToRoleAsync(user.Id, model.Name);
+                    //Ends Here
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -189,13 +196,61 @@ namespace SchoolProject.Controllers
             if (ModelState.IsValid)
             {
                 var user = new Teacher { UserName = model.Email, Email = model.Email,
-                    SureName = model.SureName,FirstName = model.FirstName};
-                user.BirthDate = model.BirthDate.ToUniversalTime();
-                user.IsTeacher = true;
+                    SureName = model.SureName,FirstName = model.FirstName,IsTeacher = true,BirthDate = model.BirthDate};
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        // GET: /Account/RegisterStudent
+        [AllowAnonymous]
+        public ActionResult RegisterStudent()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/RegisterStudent
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterStudent(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new Student
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    SureName = model.SureName,
+                    FirstName = model.FirstName,
+                    BirthDate = model.BirthDate,
+                    IsTeacher = false
+                };
+                var result = await UserManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    var currentUser = UserManager.FindByName(user.UserName);
+                    //var roleResult = UserManager.AddToRole(currentUser.Id, "Student");
+                    
+
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

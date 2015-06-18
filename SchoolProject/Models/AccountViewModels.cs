@@ -65,6 +65,7 @@ namespace SchoolProject.Models
 
     public class RegisterViewModel
     {
+        public string Name { get; set; }
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -86,7 +87,7 @@ namespace SchoolProject.Models
         [Display(Name = "First Name")]
         [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
         public string FirstName { get; set; }
-        
+        [DataType(DataType.Date)]
         [Display(Name = "Birth Date")]
         public DateTime BirthDate { get; set; }
     }

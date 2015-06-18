@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using Microsoft.AspNet.Identity.EntityFramework;
+using SchoolProject.Controllers;
 using SchoolProject.Models;
 
 namespace SchoolProject.DAL
@@ -14,6 +15,7 @@ namespace SchoolProject.DAL
         public SchoolProjectContext()
             : base("SchoolProjectContext", throwIfV1Schema: false)
         {
+            
         }
         public static SchoolProjectContext Create()
         {
@@ -32,6 +34,7 @@ namespace SchoolProject.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            
             modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });

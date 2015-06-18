@@ -1,14 +1,14 @@
 ﻿@model SchoolProject.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Register a teacher";
+    ViewBag.Title = "Register Student";
 }
 
 <h2>@ViewBag.Title.</h2>
 
-@using (Html.BeginForm("RegisterTeacher", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("RegisterStudent", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Create a new teacher account.</h4>
+    <h4>Create a new student account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">

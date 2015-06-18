@@ -172,8 +172,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Controllers\StudentGroupController - Copy.cs" />
     <Compile Include="Controllers\StudentGroupController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\TestTemplateController.cs" />
@@ -191,10 +191,6 @@
     <Compile Include="Migrations\201506181413140_context1.Designer.cs">
       <DependentUpon>201506181413140_context1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201506181428555_user.cs" />
-    <Compile Include="Migrations\201506181428555_user.Designer.cs">
-      <DependentUpon>201506181428555_user.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201506181501227_teacher.cs" />
     <Compile Include="Migrations\201506181501227_teacher.Designer.cs">
       <DependentUpon>201506181501227_teacher.cs</DependentUpon>
@@ -210,6 +206,10 @@
     <Compile Include="Migrations\201506181631268_userBool.cs" />
     <Compile Include="Migrations\201506181631268_userBool.Designer.cs">
       <DependentUpon>201506181631268_userBool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506181646187_student.cs" />
+    <Compile Include="Migrations\201506181646187_student.Designer.cs">
+      <DependentUpon>201506181646187_student.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -299,11 +299,6 @@
     <Content Include="Views\ThematicField\Details.cshtml" />
     <Content Include="Views\ThematicField\Edit.cshtml" />
     <Content Include="Views\ThematicField\Index.cshtml" />
-    <Content Include="Views\StudentGroup-Copy\Create.cshtml" />
-    <Content Include="Views\StudentGroup-Copy\Delete.cshtml" />
-    <Content Include="Views\StudentGroup-Copy\Details.cshtml" />
-    <Content Include="Views\StudentGroup-Copy\Edit.cshtml" />
-    <Content Include="Views\StudentGroup-Copy\Index.cshtml" />
     <Content Include="Views\TestTemplate\Create.cshtml" />
     <Content Include="Views\TestTemplate\Delete.cshtml" />
     <Content Include="Views\TestTemplate\Details.cshtml" />
@@ -326,6 +321,9 @@
     <Content Include="Views\StudentGroup\Index.cshtml" />
     <Content Include="Views\StudentGroup\AddStudent.cshtml" />
     <Content Include="Views\Account\RegisterTeacher.cshtml" />
+    <Content Include="Views\Account\RegisterStudent.cshtml" />
+    <None Include="Views\Role\Create.cshtml" />
+    <None Include="Views\Role\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -344,9 +342,6 @@
     <EmbeddedResource Include="Migrations\201506181413140_context1.resx">
       <DependentUpon>201506181413140_context1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506181428555_user.resx">
-      <DependentUpon>201506181428555_user.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506181501227_teacher.resx">
       <DependentUpon>201506181501227_teacher.cs</DependentUpon>
     </EmbeddedResource>
@@ -358,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506181631268_userBool.resx">
       <DependentUpon>201506181631268_userBool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506181646187_student.resx">
+      <DependentUpon>201506181646187_student.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
