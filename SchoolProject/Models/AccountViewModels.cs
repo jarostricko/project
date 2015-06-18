@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SchoolProject.Models
@@ -79,6 +80,15 @@ namespace SchoolProject.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        [Display(Name = "Last Name")]
+        [StringLength(50, ErrorMessage = "Last name cannot be longer than 50 characters.")]
+        public string SureName { get; set; }
+        [Display(Name = "First Name")]
+        [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
+        public string FirstName { get; set; }
+        
+        [Display(Name = "Birth Date")]
+        public DateTime BirthDate { get; set; }
     }
 
     public class ResetPasswordViewModel
