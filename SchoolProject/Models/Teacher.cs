@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SchoolProject.Models
 {
-    public class Teacher
+    public class Teacher//:ApplicationUser
     {
         public int ID { get; set; }
         [Required]
