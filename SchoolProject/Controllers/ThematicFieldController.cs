@@ -62,6 +62,7 @@ namespace SchoolProject.Controllers
         // POST: ThematicField/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [AuthLog(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Title")] ThematicField thematicField)

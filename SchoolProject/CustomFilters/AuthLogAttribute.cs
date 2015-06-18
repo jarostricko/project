@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using SchoolProject.DAL;
 
 namespace SchoolProject.CustomFilters
@@ -21,7 +22,14 @@ namespace SchoolProject.CustomFilters
         /// <param name="filterContext"></param>
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            base.OnAuthorization(filterContext);
+            //base.OnAuthorization(filterContext);
+            var users = base.Users;
+            var userID = filterContext.HttpContext.User.Identity.GetUserId();
+            var userRoles = filterContext.HttpContext.User.IsInRole(Roles);
+            if (filterContext.HttpContext.User.IsInRole(Roles))
+            {
+                return;
+            }
             IsUserAuthorized(filterContext);
         }
 

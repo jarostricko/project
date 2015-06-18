@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SchoolProject.DAL;
@@ -18,7 +19,7 @@ namespace SchoolProject.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private SchoolProjectContext projectContext;
+        private static SchoolProjectContext projectContext;
         public AccountController()
         {
             projectContext = new SchoolProjectContext();
@@ -521,6 +522,7 @@ namespace SchoolProject.Controllers
 
             base.Dispose(disposing);
         }
+        
 
         #region Helpers
         // Used for XSRF protection when adding external logins
