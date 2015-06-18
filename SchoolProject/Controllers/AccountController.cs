@@ -201,6 +201,9 @@ namespace SchoolProject.Controllers
 
                 if (result.Succeeded)
                 {
+                    await this.UserManager.AddToRoleAsync(user.Id, "Teacher");
+
+
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -247,8 +250,7 @@ namespace SchoolProject.Controllers
 
                 if (result.Succeeded)
                 {
-                    var currentUser = UserManager.FindByName(user.UserName);
-                    //var roleResult = UserManager.AddToRole(currentUser.Id, "Student");
+                    await this.UserManager.AddToRoleAsync(user.Id, "Student");
                     
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
