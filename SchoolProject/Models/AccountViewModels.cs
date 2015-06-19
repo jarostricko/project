@@ -4,6 +4,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SchoolProject.Models
 {
+    public class UserViewModel
+    {
+        [Display(Name = "Last Name")]
+        public string SureName { get; set; }
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime BirthDate { get; set; }
+    }
     public class ExternalLoginConfirmationViewModel
     {
         [Required]

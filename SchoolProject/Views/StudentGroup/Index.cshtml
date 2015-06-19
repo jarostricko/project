@@ -55,7 +55,7 @@
         @foreach (var item in Model.Students)
         {
             string selectedRow = "";
-            if (item.ID == ViewBag.StudentID)
+            if (item.Id == ViewBag.StudentID)
             {
                 selectedRow = "success";
             }
@@ -70,7 +70,7 @@
                     @item.BirthDate
                 </td>
                 <td>
-                    @Html.ActionLink("Remove from group", "Index", new { studentID = item.ID })
+                    @Html.ActionLink("Remove from group", "Index", new { studentID = item.Id })
                 </td>
             </tr>
         }

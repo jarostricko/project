@@ -70,7 +70,8 @@ namespace SchoolProject.Controllers
 
             if (studentID != null)
             {
-                Student student = db.Students.Find(studentID);
+                //Student student = db.Students.Find(studentID);
+                Student student = (Student) db.Users.Find(studentID);
                 StudentGroup studentGroup = db.StudentGroups.Find(id);
                 studentGroup.Students.Remove(student);
                 db.SaveChanges();
@@ -227,7 +228,8 @@ namespace SchoolProject.Controllers
             StudentGroup studentGroup = db.StudentGroups.Find(id);
             if (studentID != null)
             {
-                Student student = db.Students.Find(studentID);
+                //Student student = db.Students.Find(studentID);
+                Student student = (Student) db.Users.Find(studentID);
                 studentGroup.Students.Add(student);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { id = studentGroup.StudentGroupID });

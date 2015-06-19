@@ -38,6 +38,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: ThematicField/Details/5
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -83,7 +84,7 @@ namespace SchoolProject.Controllers
             }
             return View(thematicField);
         }
-
+        [AuthLog(Roles = "Teacher")]
         // GET: ThematicField/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -102,6 +103,7 @@ namespace SchoolProject.Controllers
         // POST: ThematicField/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [AuthLog(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ThematicFieldID,Title")] ThematicField thematicField)
@@ -116,6 +118,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: ThematicField/Delete/5
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
@@ -135,6 +138,7 @@ namespace SchoolProject.Controllers
         }
 
         // POST: ThematicField/Delete/5
+        [AuthLog(Roles = "Teacher")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
