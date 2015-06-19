@@ -29,6 +29,7 @@ namespace SchoolProject.DAL
         public DbSet<TestTemplate> TestTemplates { get; set; }
         public DbSet<ThematicField> ThematicFields { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<EditUserViewModel> EditUserViewModels { get; set; }
         //public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
 

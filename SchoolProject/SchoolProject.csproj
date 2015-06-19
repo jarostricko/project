@@ -216,9 +216,22 @@
     <Compile Include="Migrations\201506191308047_model.Designer.cs">
       <DependentUpon>201506191308047_model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506191403249_editUser.cs" />
+    <Compile Include="Migrations\201506191403249_editUser.Designer.cs">
+      <DependentUpon>201506191403249_editUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506191409363_editUser1.cs" />
+    <Compile Include="Migrations\201506191409363_editUser1.Designer.cs">
+      <DependentUpon>201506191409363_editUser1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506191426456_editUser11.cs" />
+    <Compile Include="Migrations\201506191426456_editUser11.Designer.cs">
+      <DependentUpon>201506191426456_editUser11.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
+    <Compile Include="Models\EditUserViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Question.cs" />
@@ -327,6 +340,8 @@
     <Content Include="Views\StudentGroup\AddStudent.cshtml" />
     <Content Include="Views\Account\RegisterTeacher.cshtml" />
     <Content Include="Views\Account\RegisterStudent.cshtml" />
+    <None Include="Views\Account\IndexStudent.cshtml" />
+    <None Include="Views\Account\IndexTeacher.cshtml" />
     <None Include="Views\Role\Create.cshtml" />
     <None Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Shared\AuthorizeFailed.cshtml" />
@@ -365,6 +380,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506191308047_model.resx">
       <DependentUpon>201506191308047_model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506191403249_editUser.resx">
+      <DependentUpon>201506191403249_editUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506191409363_editUser1.resx">
+      <DependentUpon>201506191409363_editUser1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506191426456_editUser11.resx">
+      <DependentUpon>201506191426456_editUser11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

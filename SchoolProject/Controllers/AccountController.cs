@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -53,6 +54,39 @@ namespace SchoolProject.Controllers
             {
                 _userManager = value;
             }
+        }
+
+        public ActionResult IndexStudent()
+        {
+            var users = projectContext.Users;
+            //ViewModel will be posted at the end of the answer
+            var model = new List<EditUserViewModel>();
+            foreach (var user in users)
+            {
+                if (user is Student)
+                {
+                    var u = new EditUserViewModel(user);
+                    model.Add(u);
+                }
+
+            }
+            return View(model);
+        }
+        public ActionResult IndexTeacher()
+        {
+            var users = projectContext.Users;
+            //ViewModel will be posted at the end of the answer
+            var model = new List<EditUserViewModel>();
+            foreach (var user in users)
+            {
+                if (user is Teacher)
+                {
+                    var u = new EditUserViewModel(user);
+                    model.Add(u);
+                }
+
+            }
+            return View(model);
         }
 
         //
