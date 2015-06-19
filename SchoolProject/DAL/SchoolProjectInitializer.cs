@@ -10,7 +10,7 @@ namespace SchoolProject.DAL
     public class SchoolProjectInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<SchoolProjectContext>
     {
         protected override void Seed(SchoolProjectContext context)
-        {
+        {/*
             var students = new List<Student>
             {
                 new Student {FirstName = "Carson", SureName = "Alexander", BirthDate = DateTime.Parse("2005-09-01")},
@@ -115,7 +115,7 @@ namespace SchoolProject.DAL
                 }
             };
             testTemplates.ForEach(t => context.TestTemplates.Add(t));
-            context.SaveChanges();
+            context.SaveChanges();*/
         }
     }
 }

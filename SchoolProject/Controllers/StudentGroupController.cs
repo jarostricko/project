@@ -17,10 +17,11 @@ namespace SchoolProject.Controllers
         private SchoolProjectContext db = new SchoolProjectContext();
 
         // GET: StudentGroup
-        public ActionResult Index(string sortOrder, string searchString, int? id, int? studentID)
+        public ActionResult Index(string sortOrder, string searchString, int? id, string email)
         {
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             var viewModel = new StudentGroupIndexData();
+            var studs = new List<EditUserViewModel>();
             viewModel.StudentGroups = db.StudentGroups.
                 Include(i => i.Students).
                 OrderBy(i => i.Title);
@@ -35,26 +36,48 @@ namespace SchoolProject.Controllers
             if (id != null && String.IsNullOrEmpty(searchString))
             {
                 ViewBag.StudentGroupID = id.Value;
-                viewModel.Students = viewModel.StudentGroups.Where(
+                var students = viewModel.StudentGroups.Where(
                     i => i.StudentGroupID == id.Value).Single().Students;
+                studs = new List<EditUserViewModel>();
+                foreach (var user in students)
+                {
+                    if (user is Student)
+                    {
+                        var u = new EditUserViewModel(user);
+                        studs.Add(u);
+                    }
+
+                }
+                viewModel.Students = studs;
             }
             if (id != null && !String.IsNullOrEmpty(searchString))
             {
                 try
                 {
                     ViewBag.StudentGroupID = id.Value;
-                    viewModel.Students = viewModel.StudentGroups.Where(s => s.Title.Contains(searchString)).
+                    var students = viewModel.StudentGroups.Where(s => s.Title.Contains(searchString)).
                         Where(i => i.StudentGroupID == id.Value).Single().Students;
+                    studs = new List<EditUserViewModel>();
+                    foreach (var user in students)
+                    {
+                        if (user is Student)
+                        {
+                            var u = new EditUserViewModel(user);
+                            studs.Add(u);
+                        }
+
+                    }
+                    viewModel.Students = studs;
                 }
                 catch (InvalidOperationException)
                 {
-                    
+
                     ViewBag.StudentGroupID = id.Value;
                     viewModel.Students = null;
                 }
-                
+
             }
-            
+
             switch (sortOrder)
             {
                 case "title_desc":
@@ -66,19 +89,23 @@ namespace SchoolProject.Controllers
                 OrderBy(i => i.Title);
                     break;
             }
-            
 
-            if (studentID != null)
+
+            if (email != null)
             {
                 //Student student = db.Students.Find(studentID);
-                Student student = (Student) db.Users.Find(studentID);
+                Student student = (Student)db.Users.Single(a => a.Email.Equals(email));
                 StudentGroup studentGroup = db.StudentGroups.Find(id);
                 studentGroup.Students.Remove(student);
                 db.SaveChanges();
+                var s = studs.Single(a => a.Email.Equals(email));
+                studs.Remove(s);
+                viewModel.Students = studs;
 
             }
             return View(viewModel);
 
+            
             //ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             //var groups = db.StudentGroups.ToList();
             //if (!String.IsNullOrEmpty(searchString))
@@ -210,7 +237,7 @@ namespace SchoolProject.Controllers
                 //Log the error (uncomment dex variable name and add a line here to write a log.
                 return RedirectToAction("Delete", new { id = id, saveChangesError = true });
             }
-            
+
             return RedirectToAction("Index");
         }
 
@@ -223,24 +250,36 @@ namespace SchoolProject.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult AddStudent(int id, int? studentID)
+        public ActionResult AddStudent(int id)
         {
             StudentGroup studentGroup = db.StudentGroups.Find(id);
-            if (studentID != null)
-            {
-                //Student student = db.Students.Find(studentID);
-                Student student = (Student) db.Users.Find(studentID);
-                studentGroup.Students.Add(student);
-                db.SaveChanges();
-                return RedirectToAction("Index", new { id = studentGroup.StudentGroupID });
-            }
             var viewModel = new StudentGroupIndexData();
             viewModel.StudentGroup = studentGroup;
-            viewModel.Students = db.Students.OrderBy(i => i.SureName);
-            viewModel.Students = viewModel.Students.Except(studentGroup.Students);
+            //viewModel.Students = db.Students.OrderBy(i => i.SureName);
+            var users = db.Users;
+            var studs = new List<EditUserViewModel>();
+            foreach (var user in users)
+            {
+                if (user is Student)//&& !studentGroup.Students.Contains(user)
+                {
+                    var u = new EditUserViewModel(user);
+                    studs.Add(u);
+                }
+            }
+            viewModel.Students = studs;
+            //viewModel.Students = viewModel.Students.Except(studentGroup.Students);
             return View(viewModel);
         }
 
-        
+        public ActionResult AddStudentByEmail(int id, string studentEmail)
+        {
+            StudentGroup studentGroup = db.StudentGroups.Find(id);
+            //Student student = db.Students.Find(studentID);
+            Student student = (Student)db.Users.Single(u => u.Email.Equals(studentEmail));
+            studentGroup.Students.Add(student);
+            db.SaveChanges();
+            return RedirectToAction("Index", new { id = studentGroup.StudentGroupID });
+
+        }
     }
 }

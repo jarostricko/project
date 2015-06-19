@@ -10,6 +10,6 @@ namespace SchoolProject.ViewModels
     {
         public StudentGroup StudentGroup { get; set; }
         public IEnumerable<StudentGroup> StudentGroups { get; set; }
-        public IEnumerable<Student> Students { get; set; }
+        public IEnumerable<EditUserViewModel> Students { get; set; }
     }
 }

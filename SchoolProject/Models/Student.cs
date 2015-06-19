@@ -24,6 +24,7 @@ namespace SchoolProject.Models
         //[Display(Name = "Birth Date")]
         //public DateTime BirthDate { get; set; }
         public virtual List<StudentGroup> StudentGroups { get; set; }
+        public virtual List<StudentsTest> StudentsTests { get; set; }
 
         [Display(Name = "Full Name")]
         public string FullName

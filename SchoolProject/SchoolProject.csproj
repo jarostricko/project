@@ -228,6 +228,14 @@
     <Compile Include="Migrations\201506191426456_editUser11.Designer.cs">
       <DependentUpon>201506191426456_editUser11.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506191642110_answerStudent.cs" />
+    <Compile Include="Migrations\201506191642110_answerStudent.Designer.cs">
+      <DependentUpon>201506191642110_answerStudent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506191757122_StudentTest.cs" />
+    <Compile Include="Migrations\201506191757122_StudentTest.Designer.cs">
+      <DependentUpon>201506191757122_StudentTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -236,7 +244,9 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudentAnswer.cs" />
     <Compile Include="Models\StudentGroup.cs" />
+    <Compile Include="Models\StudentsTest.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Models\TestTemplate.cs" />
     <Compile Include="Models\ThematicField.cs" />
@@ -244,6 +254,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\FieldsTemplatesData.cs" />
     <Compile Include="ViewModels\StudentGroupIndexData.cs" />
+    <Compile Include="ViewModels\TestViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -391,6 +402,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506191426456_editUser11.resx">
       <DependentUpon>201506191426456_editUser11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506191642110_answerStudent.resx">
+      <DependentUpon>201506191642110_answerStudent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506191757122_StudentTest.resx">
+      <DependentUpon>201506191757122_StudentTest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

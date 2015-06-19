@@ -70,7 +70,7 @@
                     @item.BirthDate
                 </td>
                 <td>
-                    @Html.ActionLink("Remove from group", "Index", new { studentID = item.Id })
+                    @Html.ActionLink("Remove from group", "Index", new {email = item.Email})
                 </td>
             </tr>
         }

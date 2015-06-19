@@ -14,7 +14,7 @@ using PagedList;
 namespace SchoolProject.Controllers
 {
     public class StudentController : Controller
-    {
+    {/*
         private SchoolProjectContext db = new SchoolProjectContext();
 
         // GET: Student
@@ -107,7 +107,7 @@ namespace SchoolProject.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch (DataException /* dex */)
+            catch (DataException )
             {
                 //Log the error (uncomment dex variable name and add a line here to write a log.
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
@@ -176,7 +176,7 @@ namespace SchoolProject.Controllers
                 db.Students.Remove(student);
                 db.SaveChanges();
             }
-            catch (DataException/* dex */)
+            catch (DataException)
             {
                 //Log the error (uncomment dex variable name and add a line here to write a log.
                 return RedirectToAction("Delete", new { id = id, saveChangesError = true });
@@ -192,6 +192,6 @@ namespace SchoolProject.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }*/
     }
 }

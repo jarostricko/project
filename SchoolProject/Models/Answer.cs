@@ -22,6 +22,7 @@ namespace SchoolProject.Models
         public string AnswerText { get; set; }        
         [Display(Name = "Is Correct")]
         public bool IsCorrect { get; set; }
+        public bool AnsweredByStudent { get; set; }
         public int QuestionID { get; set; }
         public virtual Question Question { get; set; }
 

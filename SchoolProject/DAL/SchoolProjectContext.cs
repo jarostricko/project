@@ -7,6 +7,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SchoolProject.Controllers;
 using SchoolProject.Models;
+using SchoolProject.ViewModels;
 
 namespace SchoolProject.DAL
 {
@@ -22,16 +23,17 @@ namespace SchoolProject.DAL
             return new SchoolProjectContext();
         }
 
-        public DbSet<Student> Students { get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
+        //public DbSet<Student> Students { get; set; }
+        //public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<StudentGroup> StudentGroups { get; set; }
         public DbSet<TestTemplate> TestTemplates { get; set; }
         public DbSet<ThematicField> ThematicFields { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<EditUserViewModel> EditUserViewModels { get; set; }
-        //public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-
+        public DbSet<StudentsTest> StudentsTests { get; set; }
+        public DbSet<TestViewModel> TestViewModels { get; set; }
+        
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

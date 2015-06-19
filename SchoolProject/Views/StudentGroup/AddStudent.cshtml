@@ -16,6 +16,7 @@
                 <tr>
                     <th>Sure name</th>
                     <th>First name</th>
+                    <th>Email</th>
                     <th>Birthdate</th>
                     <th></th>
                 </tr>
@@ -29,10 +30,13 @@
                             @Html.DisplayFor(modelItem => item.FirstName)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.BirthDate)
                         </td>
                         <td>
-                            @Html.ActionLink("Add", "AddStudent", new { studentID = item.ID , id = Model.StudentGroup.StudentGroupID})
+                            @Html.ActionLink("Add", "AddStudentByEmail", new { studentEmail = item.Email , id = Model.StudentGroup.StudentGroupID})
                         </td>
                     </tr>
                 }
