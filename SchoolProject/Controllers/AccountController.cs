@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -87,6 +90,101 @@ namespace SchoolProject.Controllers
 
             }
             return View(model);
+        }
+
+        public ActionResult Delete(string email = null, bool? saveChangesError = false)
+        {
+            if (email == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
+            }
+            var user = projectContext.Users.Single(a => a.Email.Equals(email));
+            var model = new EditUserViewModel(user);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string email)
+        {
+            bool isTeach = false;
+            try
+            {
+                var user = projectContext.Users.Single(a => a.Email.Equals(email));
+                isTeach = user.IsTeacher;
+                projectContext.Users.Remove(user);
+                projectContext.SaveChanges();
+            }
+            catch (DataException)
+            {
+                return RedirectToAction("Delete", new { email = email, saveChangesError = true });
+            }
+            if (isTeach)
+            {
+                return RedirectToAction("IndexTeacher");
+            }
+            return RedirectToAction("IndexStudent");
+
+        }
+
+        // GET: Teacher/Edit/5
+        public ActionResult Edit(string email = null)
+        {
+            if (email == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = projectContext.Users.Single(a => a.Email.Equals(email));
+            var model = new EditUserViewModel(user);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
+        // POST: Teacher/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "SureName,FirstName,BirthDate")] EditUserViewModel user)
+        {
+            bool isTeach = false;
+            //var model = new EditUserViewModel(user);
+            //model.BirthDate = user.BirthDate;
+            //model.SureName = user.SureName;
+            //model.FirstName = user.SureName;
+            //model.Email = user.Email;
+            if (ModelState.IsValid)
+            {
+                var userToSave = projectContext.Users.Single(u => u.Email.Equals(user.Email));
+                userToSave.FirstName = user.FirstName;
+                userToSave.SureName = user.SureName;
+                userToSave.BirthDate = user.BirthDate;
+                isTeach = userToSave.IsTeacher;
+
+                //projectContext.Entry(user).State = EntityState.Modified;
+                UserManager.Update(userToSave);
+                projectContext.SaveChanges();
+
+
+                if (isTeach)
+                {
+                    return RedirectToAction("IndexTeacher");
+                }
+                return RedirectToAction("IndexStudent");
+            }
+            return View(user);
         }
 
         //

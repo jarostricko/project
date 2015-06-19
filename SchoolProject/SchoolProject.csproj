@@ -340,6 +340,8 @@
     <Content Include="Views\StudentGroup\AddStudent.cshtml" />
     <Content Include="Views\Account\RegisterTeacher.cshtml" />
     <Content Include="Views\Account\RegisterStudent.cshtml" />
+    <None Include="Views\Account\Delete.cshtml" />
+    <None Include="Views\Account\Edit.cshtml" />
     <None Include="Views\Account\IndexStudent.cshtml" />
     <None Include="Views\Account\IndexTeacher.cshtml" />
     <None Include="Views\Role\Create.cshtml" />
