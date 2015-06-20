@@ -1,25 +1,32 @@
-﻿@model IEnumerable<SchoolProject.Models.EditUserViewModel>
+﻿@model PagedList.IPagedList<SchoolProject.Models.EditUserViewModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "IndexStudent";
 }
 
 <h2>List of students</h2>
-
-
+@using (Html.BeginForm("IndexStudent", "Account", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.SureName)
+            @Html.ActionLink("Last Name", "IndexStudent", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.ActionLink("First Name", "IndexStudent", new { sortOrder = ViewBag.FirstNameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            Email
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BirthDate)
+            @Html.ActionLink("Birth Date", "IndexStudent", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -41,9 +48,13 @@
             </td>
             <td>
                 @*@Html.ActionLink("Edit", "Edit", new { email = item.Email }) |*@
-                @Html.ActionLink("Delete", "Delete", new {email = item.Email})
+                @Html.ActionLink("Delete", "Delete", new { email = item.Email })
             </td>
         </tr>
     }
 
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("IndexStudent",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

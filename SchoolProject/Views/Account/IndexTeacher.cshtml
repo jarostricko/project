@@ -1,28 +1,38 @@
-﻿@model IEnumerable<SchoolProject.Models.EditUserViewModel>
+﻿@model PagedList.IPagedList<SchoolProject.Models.EditUserViewModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "IndexTeacher";
 }
 
 <h2>List of teachers</h2>
-
-
+@using (Html.BeginForm("IndexTeacher", "Account", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.SureName)
+            @Html.ActionLink("Last Name", "IndexTeacher", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.ActionLink("First Name", "IndexTeacher", new { sortOrder = ViewBag.FirstNameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            Email
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BirthDate)
+            @Html.ActionLink("Birth Date", "IndexTeacher", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
+
+
+
 
     @foreach (var item in Model)
     {
@@ -41,9 +51,13 @@
             </td>
             <td>
                 @*@Html.ActionLink("Edit", "Edit", new { email = item.Email }) |*@
-                @Html.ActionLink("Delete", "Delete", new { email = item.Email})
+                @Html.ActionLink("Delete", "Delete", new { email = item.Email })
             </td>
         </tr>
     }
 
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("IndexTeacher",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

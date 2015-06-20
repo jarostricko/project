@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using PagedList;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 
@@ -59,37 +60,123 @@ namespace SchoolProject.Controllers
             }
         }
 
-        public ActionResult IndexStudent()
+        public ActionResult IndexStudent(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.FirstNameSortParm = sortOrder == "FirstName" ? "firstName_desc" : "FirstName";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
             var users = projectContext.Users;
-            //ViewModel will be posted at the end of the answer
-            var model = new List<EditUserViewModel>();
+            var students = new List<EditUserViewModel>();
             foreach (var user in users)
             {
                 if (user is Student)
                 {
                     var u = new EditUserViewModel(user);
-                    model.Add(u);
+                    students.Add(u);
                 }
 
             }
-            return View(model);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.SureName.Contains(searchString)
+                                       || s.FirstName.Contains(searchString)).ToList();
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.SureName).ToList();
+                    break;
+                case "firstName_desc":
+                    students = students.OrderByDescending(s => s.FirstName).ToList();
+                    break;
+                case "FirstName":
+                    students = students.OrderBy(s => s.FirstName).ToList();
+                    break;
+                case "Date":
+                    students = students.OrderBy(s => s.BirthDate).ToList();
+                    break;
+                case "date_desc":
+                    students = students.OrderByDescending(s => s.BirthDate).ToList();
+                    break;
+                default:
+                    students = students.OrderBy(s => s.SureName).ToList();
+                    break;
+            }
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(students.ToPagedList(pageNumber, pageSize));
         }
-        public ActionResult IndexTeacher()
+        public ActionResult IndexTeacher(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.FirstNameSortParm = sortOrder == "FirstName" ? "firstName_desc" : "FirstName";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
             var users = projectContext.Users;
-            //ViewModel will be posted at the end of the answer
-            var model = new List<EditUserViewModel>();
+            
+            var teachers = new List<EditUserViewModel>();
             foreach (var user in users)
             {
                 if (user is Teacher)
                 {
                     var u = new EditUserViewModel(user);
-                    model.Add(u);
+                    teachers.Add(u);
                 }
 
             }
-            return View(model);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                teachers = teachers.Where(s => s.SureName.Contains(searchString)
+                                       || s.FirstName.Contains(searchString)).ToList();
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    teachers = teachers.OrderByDescending(s => s.SureName).ToList();
+                    break;
+                case "firstName_desc":
+                    teachers = teachers.OrderByDescending(s => s.FirstName).ToList();
+                    break;
+                case "FirstName":
+                    teachers = teachers.OrderBy(s => s.FirstName).ToList();
+                    break;
+                case "Date":
+                    teachers = teachers.OrderBy(s => s.BirthDate).ToList();
+                    break;
+                case "date_desc":
+                    teachers = teachers.OrderByDescending(s => s.BirthDate).ToList();
+                    break;
+                default:
+                    teachers = teachers.OrderBy(s => s.SureName).ToList();
+                    break;
+            }
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(teachers.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Delete(string email = null, bool? saveChangesError = false)
