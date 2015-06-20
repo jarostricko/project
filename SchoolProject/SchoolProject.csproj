@@ -175,8 +175,10 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\StudentGroupController.cs" />
+    <Compile Include="Controllers\StudentsTestController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\TestTemplateController.cs" />
+    <Compile Include="Controllers\TestViewModelController.cs" />
     <Compile Include="Controllers\ThematicFieldController.cs" />
     <Compile Include="CustomFilters\AuthLogAttribute.cs" />
     <Compile Include="DAL\SchoolProjectContext.cs" />
@@ -358,6 +360,16 @@
     <None Include="Views\Role\Create.cshtml" />
     <None Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Shared\AuthorizeFailed.cshtml" />
+    <Content Include="Views\TestViewModel\Create.cshtml" />
+    <Content Include="Views\TestViewModel\Delete.cshtml" />
+    <Content Include="Views\TestViewModel\Details.cshtml" />
+    <Content Include="Views\TestViewModel\Edit.cshtml" />
+    <Content Include="Views\TestViewModel\Index.cshtml" />
+    <Content Include="Views\StudentsTest\Create.cshtml" />
+    <Content Include="Views\StudentsTest\Delete.cshtml" />
+    <Content Include="Views\StudentsTest\Details.cshtml" />
+    <Content Include="Views\StudentsTest\Edit.cshtml" />
+    <Content Include="Views\StudentsTest\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

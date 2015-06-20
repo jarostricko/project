@@ -15,5 +15,21 @@ namespace SchoolProject.Models
         public int Points { get; set; }
         public virtual TestTemplate TestTemplate { get; set; }
         public virtual List<StudentAnswer> StudentAnswers { get; set; }
+
+        public void CountPoints()
+        {
+            Points = 0;
+            foreach (var studentAnswer in StudentAnswers)
+            {
+                if (studentAnswer.IsChecked || studentAnswer.Answer.IsCorrect)
+                {
+                    Points += studentAnswer.Answer.Question.Points;
+                }
+            }
+        }
     }
+
+
+
+
 }
