@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<SchoolProject.Models.Question>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Questions";
 }
 
-<h2>Index</h2>
+<h2>Questions</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -59,3 +59,6 @@
 }
 
 </table>
+<p>
+    @Html.ActionLink("Back", "Index", "Teacher")
+</p>

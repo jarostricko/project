@@ -422,7 +422,7 @@ namespace SchoolProject.Controllers
                 if (result.Succeeded)
                 {
                     await this.UserManager.AddToRoleAsync(user.Id, "Teacher");
-
+                    await this.UserManager.AddToRoleAsync(user.Id, "Student");//aby sa vedel prihlasit aj ako student
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 

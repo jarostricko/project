@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 using PagedList;
+using SchoolProject.CustomFilters;
 
 
 namespace SchoolProject.Controllers
@@ -16,13 +17,15 @@ namespace SchoolProject.Controllers
     public class StudentController : Controller
     {
         private SchoolProjectContext db = new SchoolProjectContext();
-        /*
+        
         // GET: Student
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult Index()
         {
-            
+
+          return View();
         }
 
+        /*
         // GET: Student/Details/5
         public ActionResult Details(int? id)
         {

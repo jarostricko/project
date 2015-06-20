@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using SchoolProject.CustomFilters;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 using SchoolProject.ViewModels;
@@ -80,6 +81,7 @@ namespace SchoolProject.Controllers
           
 
         // GET: TestTemplate/Details/5
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -95,6 +97,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: TestTemplate/Create
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Create()
         {
             var testTemplate = new TestTemplate();
@@ -158,6 +161,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: TestTemplate/Edit/5
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -179,6 +183,7 @@ namespace SchoolProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Edit(int? id, string[] selectedFields)
         {
             if (id == null)
@@ -271,6 +276,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: TestTemplate/Delete/5
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -288,6 +294,7 @@ namespace SchoolProject.Controllers
         // POST: TestTemplate/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthLog(Roles = "Teacher")]
         public ActionResult DeleteConfirmed(int id)
         {
             TestTemplate testTemplate = db.TestTemplates.Find(id);

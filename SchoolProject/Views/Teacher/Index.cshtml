@@ -1,58 +1,52 @@
-﻿@model PagedList.IPagedList<SchoolProject.Models.Teacher>
-@using PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css"/>
+﻿
+<h3>Teacher index Page</h3>
+<h4>On this page you can manage testing and users.</h4>
+<dl class="dl-horizontal">
+    <dt>
+        1.
+    </dt>
+    <dd>
+        <li>@Html.ActionLink("Questions", "Index", "Question")</li>
+    </dd>
+    <dt>
+        2.
+    </dt>
+    <dd>
+        <li>@Html.ActionLink("Thematic Fields", "Index", "ThematicField")</li>
+    </dd>
+    <dt>
+        3.
+    </dt>
+    <dd>
+        <li>@Html.ActionLink("Test Templates", "Index", "TestTemplate")</li>
+    </dd>
+    <dt>
+        4.
+    </dt>
+    <dd>
+        <li>@Html.ActionLink("Student Groups", "Index", "StudentGroup")</li>
 
-@{
-    ViewBag.Title = "Teachers";
-}
+    </dd>
+    <dt>
+        5.
+    </dt>
+    <dd>
+        <li>@Html.ActionLink("Students", "IndexStudent", "Account")</li>
+    </dd>
+    <dt>
+        6.
+    </dt>
+    <dd>
+        <li>@Html.ActionLink("Teachers", "IndexTeacher", "Account")</li>
+    </dd>
+    <dt>
+        7.
+    </dt>
+    <dd>
+        <li>@Html.ActionLink("Role", "Index", "Role")</li>
+    </dd>
 
-<h2>Teachers</h2>
+</dl>     
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-@using (Html.BeginForm("Index", "Student", FormMethod.Get))
-{
-    <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
-    </p>
-}
-<table class="table">
-    <tr>
-        <th>
-            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FirstNameSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("Birth Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SureName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BirthDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
 
-</table>
-<br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

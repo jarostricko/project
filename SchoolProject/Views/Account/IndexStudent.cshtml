@@ -17,16 +17,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Last Name", "IndexStudent", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Last Name", "IndexStudent", new {sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter})
         </th>
         <th>
-            @Html.ActionLink("First Name", "IndexStudent", new { sortOrder = ViewBag.FirstNameSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("First Name", "IndexStudent", new {sortOrder = ViewBag.FirstNameSortParm, currentFilter = ViewBag.CurrentFilter})
         </th>
         <th>
             Email
         </th>
         <th>
-            @Html.ActionLink("Birth Date", "IndexStudent", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Birth Date", "IndexStudent", new {sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter})
         </th>
         <th></th>
     </tr>
@@ -48,13 +48,17 @@
             </td>
             <td>
                 @*@Html.ActionLink("Edit", "Edit", new { email = item.Email }) |*@
-                @Html.ActionLink("Delete", "Delete", new { email = item.Email })
+                @Html.ActionLink("Delete", "Delete", new {email = item.Email})
             </td>
         </tr>
     }
 
 </table>
+
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 @Html.PagedListPager(Model, page => Url.Action("IndexStudent",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+<p>
+    @Html.ActionLink("Back", "Index", "Teacher")
+</p>

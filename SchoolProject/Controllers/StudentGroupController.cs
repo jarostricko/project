@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using SchoolProject.CustomFilters;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 using SchoolProject.ViewModels;
@@ -125,6 +126,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: StudentGroup/Details/5
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -140,6 +142,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: StudentGroup/Create
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Create()
         {
             return View();
@@ -171,6 +174,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: StudentGroup/Edit/5
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -190,6 +194,7 @@ namespace SchoolProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Edit([Bind(Include = "StudentGroupID,Title")] StudentGroup studentGroup)
         {
             if (ModelState.IsValid)
@@ -202,6 +207,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: StudentGroup/Delete/5
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
 
@@ -224,6 +230,7 @@ namespace SchoolProject.Controllers
         // POST: StudentGroup/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthLog(Roles = "Teacher")]
         public ActionResult DeleteConfirmed(int id)
         {
             try
@@ -278,7 +285,7 @@ namespace SchoolProject.Controllers
             Student student = (Student)db.Users.Single(u => u.Email.Equals(studentEmail));
             studentGroup.Students.Add(student);
             db.SaveChanges();
-            return RedirectToAction("Index", new { id = studentGroup.StudentGroupID });
+            return RedirectToAction("Index",new { id = studentGroup.StudentGroupID });
 
         }
     }

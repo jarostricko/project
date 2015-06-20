@@ -21,7 +21,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Template Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+            @Html.ActionLink("Template Name", "Index", new {sortOrder = ViewBag.NameSortParm})
         </th>
         <th>
             @Html.ActionLink("Test Time", "Index", new {sortOrder = ViewBag.TimeSortParm})
@@ -36,37 +36,40 @@
             @Html.ActionLink("Questions", "Index", new {sortOrder = ViewBag.CountSortParm})
         </th>
         <th>
-            @Html.ActionLink("Student Group", "Index", new { sortOrder = ViewBag.GroupSortParm })
+            @Html.ActionLink("Student Group", "Index", new {sortOrder = ViewBag.GroupSortParm})
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Time)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QuestionCount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentGroup.Title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new {id = item.TestTemplateID}) |
-            @Html.ActionLink("Details", "Details", new {id = item.TestTemplateID}) |
-            @Html.ActionLink("Delete", "Delete", new {id = item.TestTemplateID})
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentGroup.Title)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.TestTemplateID}) |
+                @Html.ActionLink("Details", "Details", new {id = item.TestTemplateID}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.TestTemplateID})
+            </td>
+        </tr>
+    }
 </table>
+<p>
+    @Html.ActionLink("Back", "Index", "Teacher")
+</p>

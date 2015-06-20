@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<SchoolProject.Models.ThematicField>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Thematic fields";
 }
 
-<h2>Index</h2>
+<h2>Thematic fields</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -37,5 +37,7 @@
         </td>
     </tr>
 }
-
 </table>
+<p>
+    @Html.ActionLink("Back", "Index", "Teacher")
+</p>

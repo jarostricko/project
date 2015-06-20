@@ -38,14 +38,19 @@ namespace SchoolProject.CustomFilters
             
             var currentUserId = filterContext.HttpContext.User.Identity.GetUserId();
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new SchoolProjectContext()));
-            var currentUser = manager.FindById(currentUserId);
+            if (currentUserId != null)
+            {
+                var currentUser = manager.FindById(currentUserId);
+                if (currentUser != null && currentUser.IsTeacher)
+                {
+                    filterContext.Result = null;
+                }
+            }
+            
             //toto riesenie z dovodu, ze tieto Authozation metody hladaju Role a Usera v inej tabulke
             //Userov a Role a vztahy medzi nimi su v tabulkach IdentityRole a pod. a tieto metody to hladaju v AspNetRoles apod.
             //Niekolko hodin som hladal riesenie a nenasiel som ho, tak som to spravil takto
-            if (currentUser != null && currentUser.IsTeacher && Roles == "Teacher") 
-            {
-                filterContext.Result = null;
-            }
+            
             // If the Result returns null then the user is Authorized 
             if (filterContext.Result == null)
                 return;
@@ -68,5 +73,6 @@ namespace SchoolProject.CustomFilters
                 filterContext.Result = result;
             }
         }
+        
     }
 }
