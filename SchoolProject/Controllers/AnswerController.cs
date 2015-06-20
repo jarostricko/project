@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using SchoolProject.CustomFilters;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 
@@ -17,6 +18,7 @@ namespace SchoolProject.Controllers
         private SchoolProjectContext db = new SchoolProjectContext();
 
         // GET: Answer
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Index(int? question)
         {
             if (question != null)
@@ -28,6 +30,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: Answer/Details/5
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -43,6 +46,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: Answer/Create
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Create(int? questionID)
         {
             if (questionID != null)
@@ -86,6 +90,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: Answer/Edit/5
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -120,6 +125,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: Answer/Delete/5
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)

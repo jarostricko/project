@@ -18,7 +18,6 @@ namespace SchoolProject.Controllers
         private SchoolProjectContext db = new SchoolProjectContext();
         
         [AuthLog(Roles = "Teacher")]
-        [AuthLog(Roles = "Student")]
         public ActionResult Index()
         {
             return View();

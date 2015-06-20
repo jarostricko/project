@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using SchoolProject.CustomFilters;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 
@@ -61,6 +62,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: Question/Details/5
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -76,6 +78,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: Question/Create
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Create()
         {
             ViewBag.ThematicFieldID = new SelectList(db.ThematicFields, "ThematicFieldID", "Title");
@@ -108,6 +111,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: Question/Edit/5
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Edit(int? id, int? answerID)
         {
             if (answerID != null)
@@ -145,6 +149,7 @@ namespace SchoolProject.Controllers
         }
 
         // GET: Question/Delete/5
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Delete(int? id, int? answerID , bool? saveChangesError = false )
         {
             if (answerID != null)
