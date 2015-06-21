@@ -1,0 +1,45 @@
+﻿@model SchoolProject.ViewModels.TestViewModel
+@*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>*@
+
+@{
+    ViewBag.Title = "Test";
+}
+<h2>Test</h2>
+
+<div>
+    <h4>@Model.TestTemplateName</h4>
+    <hr />
+    <div class="container">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            foreach (var question in Model.Questions)
+            {
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">@question.Text</h3><br />
+                    </div>
+                    <div class="panel-body">
+                        @foreach (var studentAnswer in question.AnswersList)
+                        {
+                            @Html.RadioButton(question.QuestionID.ToString(), studentAnswer.AnswerID)
+                            ;
+                            @Html.Raw("  ")
+                            ;
+                            @Html.Label(studentAnswer.AnswerID.ToString(), studentAnswer.AnswerText)
+                            <br />
+                        }
+                    </div>
+                </div>
+            }
+            <input type="submit" value="OK" class="btn btn-success" />
+        }
+    </div>
+
+
+
+</div>
+@*<p>
+        <br />
+        @Html.ActionLink("Back to List", "../StudentManager/Index")
+    </p>*@

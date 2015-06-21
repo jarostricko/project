@@ -366,6 +366,7 @@
     <Content Include="Views\StudentsTest\Index.cshtml" />
     <None Include="Views\StudentGroup\IndexStudent.cshtml" />
     <None Include="Views\TestTemplate\IndexStudent.cshtml" />
+    <None Include="Views\TestTemplate\TakeTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

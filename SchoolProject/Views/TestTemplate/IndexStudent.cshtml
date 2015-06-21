@@ -56,6 +56,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.StudentGroup.Title)
             </td>
+            <td>
+                @Html.ActionLink("Start this test", "TakeTest",new {id = item.TestTemplateID})
+            </td>
         </tr>
     }
 </table>

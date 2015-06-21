@@ -440,5 +440,23 @@ namespace SchoolProject.Controllers
             }
             return RedirectToAction("Details", new { id = id });
         }
+
+        public ActionResult TakeTest(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            TestTemplate testTemplate = db.TestTemplates.Find(id);
+            if (testTemplate == null)
+            {
+                return HttpNotFound();
+            }
+            TestViewModel testViewModel = new TestViewModel();
+            testViewModel.Questions = testTemplate.Questions;
+            testViewModel.TestTemplateName = testTemplate.Name;
+            testViewModel.Score = 0;
+            return View(testViewModel);
+        }
     }
 }
