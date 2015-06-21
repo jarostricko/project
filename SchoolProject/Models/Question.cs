@@ -35,5 +35,13 @@ namespace SchoolProject.Models
         public int ThematicFieldID { get; set; }
         public virtual List<TestTemplate> TestTemplates { get; set; }
         public virtual ThematicField ThematicField { get; set; }
+
+        public bool MoreCorrectAnswersOrZero()
+        {
+            int correct = AnswersList.Count(answer => answer.IsCorrect);
+            if (correct == 0) return true;
+            if (correct > 1) return true;
+            return false;
+        }
     }
 }

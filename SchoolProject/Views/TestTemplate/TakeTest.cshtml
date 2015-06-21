@@ -19,17 +19,30 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">@question.Text</h3><br />
                     </div>
-                    <div class="panel-body">
-                        @foreach (var studentAnswer in question.AnswersList)
-                        {
-                            @Html.RadioButton(question.QuestionID.ToString(), studentAnswer.AnswerID)
-                            ;
-                            @Html.Raw("  ")
-                            ;
-                            @Html.Label(studentAnswer.AnswerID.ToString(), studentAnswer.AnswerText)
-                            <br />
-                        }
-                    </div>
+                    @if (!question.MoreCorrectAnswersOrZero())
+                    {
+                        <div class="panel-body">
+                            @foreach (var studentAnswer in question.AnswersList)
+                            {
+                                @Html.RadioButton(question.QuestionID.ToString(), studentAnswer.AnswerID)
+                                @Html.Raw("  ")
+                                @Html.Label(studentAnswer.AnswerID.ToString(), studentAnswer.AnswerText)
+                                <br />
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="panel-body">
+                            @foreach (var studentAnswer in question.AnswersList)
+                            {
+                                @Html.CheckBox(question.QuestionID.ToString(), studentAnswer.AnswerID)
+                                @Html.Raw("  ")
+                                @Html.Label(studentAnswer.AnswerID.ToString(), studentAnswer.AnswerText)
+                                <br />
+                            }
+                        </div>
+                    }
                 </div>
             }
             <input type="submit" value="OK" class="btn btn-success" />
@@ -39,7 +52,7 @@
 
 
 </div>
-@*<p>
+<p>
         <br />
-        @Html.ActionLink("Back to List", "../StudentManager/Index")
-    </p>*@
+        @Html.ActionLink("Back to Tests", "IndexStudent")
+    </p>
