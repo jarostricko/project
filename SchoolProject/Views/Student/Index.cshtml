@@ -3,20 +3,20 @@
 <h4>On this page you can see your student groups, test available to you and your test results.</h4>
 <dl class="dl-horizontal">
     <dt>
-        dorobit
+        1.
     </dt>
     <dd>
-        <li>@Html.ActionLink("Test Templates", "Index", "TestTemplate")</li>
+        <li>@Html.ActionLink("Available tests", "IndexStudent", "TestTemplate")</li>
     </dd>
     <dt>
-        dorobit
+        2.
     </dt>
     <dd>
-        <li>@Html.ActionLink("Student Groups", "Index", "StudentGroup")</li>
+        <li>@Html.ActionLink("Your student groups", "IndexStudent", "StudentGroup",null,null,null,new {email = ViewBag.Student},null)</li>
 
     </dd>
     <dt>
-        Test
+        3.
     </dt>
     <dd>
 

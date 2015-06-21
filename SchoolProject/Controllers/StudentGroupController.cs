@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using SchoolProject.CustomFilters;
 using SchoolProject.DAL;
 using SchoolProject.Models;
@@ -18,6 +19,7 @@ namespace SchoolProject.Controllers
         private SchoolProjectContext db = new SchoolProjectContext();
 
         // GET: StudentGroup
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Index(string sortOrder, string searchString, int? id, string email)
         {
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
@@ -105,25 +107,93 @@ namespace SchoolProject.Controllers
 
             }
             return View(viewModel);
+        }
 
-            
-            //ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
-            //var groups = db.StudentGroups.ToList();
-            //if (!String.IsNullOrEmpty(searchString))
-            //{
-            //    groups = groups.Where(s => s.Title.Contains(searchString)).ToList();
-            //}
+        public ActionResult IndexStudent(string sortOrder, string searchString, int? id, string email)
+        {
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            var viewModel = new StudentGroupIndexData();
+            var studs = new List<EditUserViewModel>();
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = db.Users.Find(currentUserId);
+            var g = new List<StudentGroup>();
+            var groups = db.StudentGroups.Include(i => i.Students).OrderBy(i => i.Title);
+            foreach (var group in groups)
+            {
+                if (group.Students.Contains(currentUser))
+                {
+                    g.Add(group);
+                }
+            }
+            viewModel.StudentGroups = g;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                viewModel.StudentGroups = db.StudentGroups.
+                    Where(s => s.Title.Contains(searchString)).
+                    OrderBy(i => i.Title);
+            }
+            if (id != null && String.IsNullOrEmpty(searchString))
+            {
+                ViewBag.StudentGroupID = id.Value;
+                var students = viewModel.StudentGroups.Where(
+                    i => i.StudentGroupID == id.Value).Single().Students;
+                studs = new List<EditUserViewModel>();
+                foreach (var user in students)
+                {
+                    if (user is Student)
+                    {
+                        var u = new EditUserViewModel(user);
+                        studs.Add(u);
+                    }
+
+                }
+                viewModel.Students = studs;
+            }
+            if (id != null && !String.IsNullOrEmpty(searchString))
+            {
+                try
+                {
+                    ViewBag.StudentGroupID = id.Value;
+                    var students = viewModel.StudentGroups.Where(s => s.Title.Contains(searchString)).
+                        Where(i => i.StudentGroupID == id.Value).Single().Students;
+                    studs = new List<EditUserViewModel>();
+                    foreach (var user in students)
+                    {
+                        if (user is Student)
+                        {
+                            var u = new EditUserViewModel(user);
+                            studs.Add(u);
+                        }
+
+                    }
+                    viewModel.Students = studs;
+                }
+                catch (InvalidOperationException)
+                {
+
+                    ViewBag.StudentGroupID = id.Value;
+                    viewModel.Students = null;
+                }
+
+            }
+
             //switch (sortOrder)
             //{
             //    case "title_desc":
-            //        groups = groups.OrderByDescending(s => s.Title).ToList();
+            //        viewModel.StudentGroups = viewModel.StudentGroups.
+            //            OrderByDescending(i => i.Title);
             //        break;
             //    default:
-            //        groups = groups.OrderBy(s => s.Title).ToList();
+            //        viewModel.StudentGroups = viewModel.StudentGroups.
+            //            OrderBy(i => i.Title);
             //        break;
             //}
-            //return View(groups.ToList());
+            
+            return View(viewModel);
         }
+        
+        
 
         // GET: StudentGroup/Details/5
         [AuthLog(Roles = "Teacher")]

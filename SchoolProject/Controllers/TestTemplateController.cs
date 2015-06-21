@@ -78,6 +78,65 @@ namespace SchoolProject.Controllers
             }
             return View(testTemplates.ToList());
         }
+
+        public ActionResult IndexStudent(string sortOrder, string searchString)
+        {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.TimeSortParm = sortOrder == "Time" ? "time_desc" : "Time";
+            ViewBag.STimeSortParm = sortOrder == "STime" ? "stime_desc" : "STime";
+            ViewBag.ETimeSortParm = sortOrder == "ETime" ? "etime_desc" : "ETime";
+            ViewBag.CountSortParm = sortOrder == "Count" ? "count_desc" : "Count";
+            ViewBag.GroupSortParm = sortOrder == "Group" ? "group_desc" : "Group";
+
+
+            var testTemplates = db.TestTemplates.Include(t => t.StudentGroup);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                testTemplates = testTemplates.Where(s => s.Name.Contains(searchString)
+                                       || s.StudentGroup.Title.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    testTemplates = testTemplates.OrderByDescending(s => s.Name);
+                    break;
+                case "time_desc":
+                    testTemplates = testTemplates.OrderByDescending(s => s.Time);
+                    break;
+                case "Time":
+                    testTemplates = testTemplates.OrderBy(s => s.Time);
+                    break;
+                case "STime":
+                    testTemplates = testTemplates.OrderBy(s => s.StartTime);
+                    break;
+                case "stime_desc":
+                    testTemplates = testTemplates.OrderByDescending(s => s.StartTime);
+                    break;
+                case "ETime":
+                    testTemplates = testTemplates.OrderBy(s => s.EndTime);
+                    break;
+                case "etime_desc":
+                    testTemplates = testTemplates.OrderByDescending(s => s.EndTime);
+                    break;
+                case "Count":
+                    testTemplates = testTemplates.OrderBy(s => s.QuestionCount);
+                    break;
+                case "count_desc":
+                    testTemplates = testTemplates.OrderByDescending(s => s.QuestionCount);
+                    break;
+                case "Group":
+                    testTemplates = testTemplates.OrderBy(s => s.StudentGroup.Title);
+                    break;
+                case "group_desc":
+                    testTemplates = testTemplates.OrderByDescending(s => s.StudentGroup.Title);
+                    break;
+                default:
+                    testTemplates = testTemplates.OrderBy(s => s.Name);
+                    break;
+            }
+            return View(testTemplates.ToList());
+        }
           
 
         // GET: TestTemplate/Details/5

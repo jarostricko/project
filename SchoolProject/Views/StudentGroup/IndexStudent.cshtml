@@ -3,9 +3,7 @@
     ViewBag.Title = "Student Groups";
 }
 <h2>Student Groups</h2>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 @using (Html.BeginForm())
 {
     <p>
@@ -16,7 +14,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm })
+            @Html.ActionLink("Title", "IndexStudent", new { sortOrder = ViewBag.TitleSortParm })
         </th>
         <th></th>
     </tr>
@@ -32,11 +30,8 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.ActionLink("Students", "Index", new { id = item.StudentGroupID}) |
-                @Html.ActionLink("Edit", "Edit", new {id = item.StudentGroupID}) |
-                @Html.ActionLink("Details", "Details", new {id = item.StudentGroupID}) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.StudentGroupID}) |
-                @Html.ActionLink("Add a student", "AddStudent", new { id = item.StudentGroupID})
+                @Html.ActionLink("Students", "IndexStudent", new { id = item.StudentGroupID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.StudentGroupID })
             </td>
         </tr>
     }
@@ -50,7 +45,7 @@
             <th>First name</th>
             <th>Email</th>
             <th>Birth Date</th>
-            <th></th>
+            
         </tr>
 
         @foreach (var item in Model.Students)
@@ -73,14 +68,12 @@
                 <td>
                     @item.BirthDate
                 </td>
-                <td>
-                    @Html.ActionLink("Remove from group", "Index", new {email = item.Email})
-                </td>
+                
             </tr>
         }
 
     </table>
 }
 <p>
-    @Html.ActionLink("Back", "Index", "Teacher")
+    @Html.ActionLink("Back", "Index", "Student")
 </p>

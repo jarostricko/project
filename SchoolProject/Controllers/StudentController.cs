@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 using PagedList;
@@ -19,9 +20,10 @@ namespace SchoolProject.Controllers
         private SchoolProjectContext db = new SchoolProjectContext();
         
         // GET: Student
+        [AuthLog]
         public ActionResult Index()
         {
-
+            ViewBag.Student = User.Identity.GetUserName();
           return View();
         }
 

@@ -15,7 +15,7 @@ namespace SchoolProject.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "This examing system is a final project to PV178 Úvod do vývoje v C#/.NET";
 
             return View();
         }

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SchoolProject.Models.TestTemplate>
+@{
+    ViewBag.Title = "Test Templates";
+}
+<h2>Test Templates</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Template Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Test Time", "Index", new { sortOrder = ViewBag.TimeSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Availabe from", "Index", new { sortOrder = ViewBag.STimeSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Available to", "Index", new { sortOrder = ViewBag.ETimeSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Questions", "Index", new { sortOrder = ViewBag.CountSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Student Group", "Index", new { sortOrder = ViewBag.GroupSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentGroup.Title)
+            </td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Back", "Index", "Student")
+</p>
