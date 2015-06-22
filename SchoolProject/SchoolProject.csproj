@@ -241,6 +241,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
+    <Compile Include="Models\Binders\TestModelBinder.cs" />
     <Compile Include="Models\EditUserViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -367,6 +368,7 @@
     <None Include="Views\StudentGroup\IndexStudent.cshtml" />
     <None Include="Views\TestTemplate\IndexStudent.cshtml" />
     <None Include="Views\TestTemplate\TakeTest.cshtml" />
+    <None Include="Views\TestViewModel\TakeTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

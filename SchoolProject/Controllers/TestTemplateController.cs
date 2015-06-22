@@ -6,12 +6,14 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.ModelBinding;
 using System.Web.Mvc;
 using SchoolProject.CustomFilters;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 using SchoolProject.ViewModels;
 using WebGrease.Activities;
+using ModelBinders = System.Web.Mvc.ModelBinders;
 
 namespace SchoolProject.Controllers
 {
@@ -441,22 +443,36 @@ namespace SchoolProject.Controllers
             return RedirectToAction("Details", new { id = id });
         }
 
-        public ActionResult TakeTest(int id)
+        public ActionResult TakeTest(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TestTemplate testTemplate = db.TestTemplates.Find(id);
-            if (testTemplate == null)
-            {
-                return HttpNotFound();
-            }
-            TestViewModel testViewModel = new TestViewModel();
-            testViewModel.Questions = testTemplate.Questions;
-            testViewModel.TestTemplateName = testTemplate.Name;
-            testViewModel.Score = 0;
-            return View(testViewModel);
+            return RedirectToAction("TakeTest", "TestViewModel",new {id = id});
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //TestTemplate testTemplate = db.TestTemplates.Include(a => a.Questions).Single(a => a.TestTemplateID == id);
+            //if (testTemplate == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //TestViewModel testViewModel = new TestViewModel();
+            //testViewModel.Questions = testTemplate.Questions;
+            //testViewModel.TestTemplateName = testTemplate.Name;
+            //testViewModel.Score = 0;
+            //ViewBag.Questions = testViewModel.Questions;
+            //return View(testViewModel);
         }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult TakeTest(TestViewModel modelBinder)
+        //{
+        //    var questions = ViewBag.Questions;
+        //    if (ModelState.IsValid)
+        //    {
+        //        var result = new StudentsTest();
+        //        //result.TestTemplate.Name = testViewModel.TestTemplateName;
+        //    }
+        //    return RedirectToAction("IndexStudent", "TestTemplate");
+        //}
     }
 }

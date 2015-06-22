@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SchoolProject.DAL;
+using SchoolProject.Models;
+using SchoolProject.Models.Binders;
 using SchoolProject.ViewModels;
 
 namespace SchoolProject.Controllers
@@ -14,7 +16,49 @@ namespace SchoolProject.Controllers
     public class TestViewModelController : Controller
     {
         private SchoolProjectContext db = new SchoolProjectContext();
+        
+        public ActionResult TakeTest(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            TestTemplate testTemplate = db.TestTemplates.Include(a => a.Questions).Single(a => a.TestTemplateID == id);
+            if (testTemplate == null)
+            {
+                return HttpNotFound();
+            }
+            var allQuestions = db.Questions.Include(a => a.AnswersList).ToList();
+            var questions = new List<Question>();
+            foreach (var q in allQuestions)
+            {
+                if (testTemplate.Questions.Contains(q))
+                {
+                    questions.Add(q);
+                }
+            }
+            TestViewModel testViewModel = new TestViewModel();
+            testViewModel.Questions = questions;
+            testViewModel.TestTemplateName = testTemplate.Name;
+            testViewModel.Score = 0;
+            ViewBag.Questions = testViewModel.Questions;
+            return View(testViewModel);
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TakeTest(TestViewModel testView)//[ModelBinder(typeof (TestModelBinder))] TestViewModel testViewModel
+        {
+            int points = 0;
+            var allKeys = ControllerContext.HttpContext.Request.Form.AllKeys;
+            var questions = db.Questions.Include(a => a.AnswersList).Where(q => allKeys.Contains(q.QuestionID.ToString()));
+            foreach (var question in questions)
+            {
+                var answers = question.AnswersList;
+                points += answers.Where(ans => ans.AnsweredByStudent && ans.IsCorrect).Sum(ans => question.Points);
+            }
+            return RedirectToAction("IndexStudent", "TestTemplate");
+        }
         // GET: TestViewModel
         public ActionResult Index()
         {
