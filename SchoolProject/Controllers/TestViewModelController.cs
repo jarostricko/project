@@ -47,21 +47,18 @@ namespace SchoolProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TakeTest(int[] selectedObjects)//[ModelBinder(typeof (TestModelBinder))] TestViewModel testViewModel
+        public ActionResult TakeTest(string[] selectedObjects)//[ModelBinder(typeof (TestModelBinder))] TestViewModel testViewModel
         {
             int points = 0;
-            var allKeys = ControllerContext.HttpContext.Request.Form.AllKeys;
+            
+            //var allKeys = ControllerContext.HttpContext.Request.Form.AllKeys;
             //var questions = db.Questions.Include(a => a.AnswersList).Where(q => allKeys.Contains(q.QuestionID.ToString()));
             //foreach (var question in questions)
             //{
             //    var answers = question.AnswersList;
             //    points += answers.Where(ans => ans.AnsweredByStudent && ans.IsCorrect).Sum(ans => question.Points);
             //}
-            var answers = db.Answers.Where(a => allKeys.Contains(a.AnswerID.ToString()));
-            foreach (var ans in answers)
-            {
-                
-            }
+            
             return RedirectToAction("IndexStudent", "TestTemplate");
         }
         // GET: TestViewModel
