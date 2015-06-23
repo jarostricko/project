@@ -14,6 +14,8 @@ namespace SchoolProject.ViewModels
         public string TestTemplateName { get; set; }
         public int Score { get; set; }
         public virtual List<Question> Questions { get; set; }
+        //public virtual List<Answer> Answers { get; set; }
+ 
 
         public TestViewModel(List<Question> questions)
         {

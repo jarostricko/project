@@ -238,6 +238,14 @@
     <Compile Include="Migrations\201506191757122_StudentTest.Designer.cs">
       <DependentUpon>201506191757122_StudentTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506221410076_ansList.cs" />
+    <Compile Include="Migrations\201506221410076_ansList.Designer.cs">
+      <DependentUpon>201506221410076_ansList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506221602397_back.cs" />
+    <Compile Include="Migrations\201506221602397_back.Designer.cs">
+      <DependentUpon>201506221602397_back.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -419,6 +427,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506191757122_StudentTest.resx">
       <DependentUpon>201506191757122_StudentTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506221410076_ansList.resx">
+      <DependentUpon>201506221410076_ansList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506221602397_back.resx">
+      <DependentUpon>201506221602397_back.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

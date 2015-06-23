@@ -1,4 +1,5 @@
-﻿@model SchoolProject.ViewModels.TestViewModel
+﻿@using System.Web.Mvc.Html
+@model SchoolProject.ViewModels.TestViewModel
 @*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>*@
 @{
     ViewBag.Title = "Test";
@@ -23,11 +24,13 @@
                     @if (!question.MoreCorrectAnswersOrZero())
                     {
                         <div class="panel-body">
-                            @foreach (var studentAnswer in question.AnswersList)
+                            @foreach (var answer in question.AnswersList)
                             {
-                                @Html.RadioButton(question.QuestionID.ToString(), studentAnswer.AnswerID, studentAnswer.AnsweredByStudent, studentAnswer.AnswerID)
+                                //@Html.RadioButton(question.QuestionID.ToString(), answer.AnswerID, answer.AnsweredByStudent, answer.AnswerID)
+                                //@Html.CheckBox(answer.AnswerID.ToString(),new {value = answer.AnswerText })
+                    <input type="checkbox" name="selectedObjects" value="@answer.AnswerID" />
                                 @Html.Raw("  ")
-                                @Html.Label(studentAnswer.AnswerID.ToString(), studentAnswer.AnswerText)
+                                @Html.Label(answer.AnswerID.ToString(), answer.AnswerText)
                                 <br />
                             }
                         </div>
@@ -35,12 +38,14 @@
                     else
                     {
                         <div class="panel-body">
-                            @foreach (var studentAnswer in question.AnswersList)
+                            @foreach (var answer in question.AnswersList)
                             {
-                                @Html.CheckBox(question.QuestionID.ToString(), studentAnswer.AnsweredByStudent, studentAnswer.AnswerID)
-                                @Html.CheckBoxFor(model => studentAnswer.AnsweredByStudent)
+                                //@Html.CheckBox(question.QuestionID.ToString(), answer.AnsweredByStudent, answer.AnswerID)
+                                //@Html.CheckBoxFor(model => answer.AnsweredByStudent,answer.AnswerID)4                                @Html.CheckBox(answer.AnswerID.ToString(), new {value = answer.AnswerID,@checked = true })
+                                //@Html.CheckBox(answer.AnswerID.ToString(), new { value = answer.AnswerText })
+    <input type="checkbox" name="selectedObjects" value="@answer.AnswerID" />
                                 @Html.Raw("  ")
-                                @Html.Label(studentAnswer.AnswerID.ToString(), studentAnswer.AnswerText)
+                                @Html.Label(answer.AnswerID.ToString(), answer.AnswerText)
                                 <br />
                             }
                         </div>
@@ -60,5 +65,5 @@
 }
 <p>
     <br />
-    @Html.ActionLink("Back to Tests", "IndexStudent","TestTemplate")
+    @Html.ActionLink("Back to Tests", "IndexStudent", "TestTemplate")
 </p>
