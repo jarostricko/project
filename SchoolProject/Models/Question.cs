@@ -43,5 +43,10 @@ namespace SchoolProject.Models
             if (correct > 1) return true;
             return false;
         }
+
+        public int NumOfCorrectAns()
+        {
+            return AnswersList.Count(answer => answer.IsCorrect);
+        }
     }
 }

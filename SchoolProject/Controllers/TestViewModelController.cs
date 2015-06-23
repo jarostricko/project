@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 using SchoolProject.Models.Binders;
@@ -50,7 +53,44 @@ namespace SchoolProject.Controllers
         public ActionResult TakeTest(string[] selectedObjects)//[ModelBinder(typeof (TestModelBinder))] TestViewModel testViewModel
         {
             int points = 0;
-            
+            List<StudentAnswer> studentAnswers = new List<StudentAnswer>();
+            List<Question> testQuestions = new List<Question>();
+            StudentsTest studentsTest = new StudentsTest();
+            foreach (var pair in selectedObjects)
+            {
+                var splitted = pair.Split(',');
+
+                var ansIDstring = splitted[0];
+                int ansID;
+                Int32.TryParse(ansIDstring, out ansID);
+                var answer = db.Answers.Find(ansID);
+                studentAnswers.Add(new StudentAnswer { Answer = answer, AnswerID = ansID, IsChecked = true });
+
+                var queIDstring = splitted[1];
+                int queID;
+                Int32.TryParse(queIDstring, out queID);
+                var question = db.Questions.Find(queID);
+                testQuestions.Add(question);
+
+                if (answer.IsCorrect)
+                {
+                    if (question.NumOfCorrectAns() > 1)
+                    {
+                        points = points + (question.Points / question.NumOfCorrectAns());
+                    }
+                    else
+                    {
+                        points = points + question.Points;
+                    }
+                }
+            }
+            studentsTest.Points = points;
+            studentsTest.StudentAnswers = studentAnswers;
+            var userID = User.Identity.GetUserId();
+            Student student = (Student) db.Users.Find(userID);
+            studentsTest.Student = student;
+            db.StudentsTests.Add(studentsTest);
+            db.SaveChanges();
             //var allKeys = ControllerContext.HttpContext.Request.Form.AllKeys;
             //var questions = db.Questions.Include(a => a.AnswersList).Where(q => allKeys.Contains(q.QuestionID.ToString()));
             //foreach (var question in questions)

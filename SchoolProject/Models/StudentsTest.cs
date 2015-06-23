@@ -10,7 +10,7 @@ namespace SchoolProject.Models
     {
         [Key]
         public int StudentTestID { get; set; }
-        public int StudentID { get; set; }
+        public string StudentID { get; set; }//treba string
         public virtual Student Student { get; set; }
         public int Points { get; set; }
         public virtual TestTemplate TestTemplate { get; set; }
