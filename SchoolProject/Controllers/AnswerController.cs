@@ -102,7 +102,7 @@ namespace SchoolProject.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.QuestionID = new SelectList(db.Questions, "QuestionID", "Text", answer.QuestionID); 
+            ViewBag.QuestionID = new SelectList(db.Questions.Where(q => q.QuestionID.Equals(answer.QuestionID)), "QuestionID", "Text", answer.QuestionID); 
             return View(answer);
         }
 

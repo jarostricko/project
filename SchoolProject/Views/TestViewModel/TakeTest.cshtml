@@ -28,7 +28,7 @@
                             {
                                 //@Html.RadioButton(question.QuestionID.ToString(), answer.AnswerID, answer.AnsweredByStudent, answer.AnswerID)
                                 //@Html.CheckBox(answer.AnswerID.ToString(),new {value = answer.AnswerText })
-                                <input type="checkbox" name="selectedObjects" value="@answer.AnswerID,@question.QuestionID"/>
+                                <input type="checkbox" name="selectedObjects" value="@answer.AnswerID,@question.QuestionID,@Model.TestTemplateName"/>
                                 //<input type="radio" name="selectedObjects" value="@answer.AnswerID"/>
                                 @Html.Raw("  ")
                                 @Html.Label(answer.AnswerID.ToString(), answer.AnswerText)
@@ -44,7 +44,7 @@
                                 //@Html.CheckBox(question.QuestionID.ToString(), answer.AnsweredByStudent, answer.AnswerID)
                                 //@Html.CheckBoxFor(model => answer.AnsweredByStudent,answer.AnswerID)4                                @Html.CheckBox(answer.AnswerID.ToString(), new {value = answer.AnswerID,@checked = true })
                                 //@Html.CheckBox(answer.AnswerID.ToString(), new { value = answer.AnswerText })
-                                <input type="checkbox" name="selectedObjects" value="@answer.AnswerID,@question.QuestionID" />
+                                <input type="checkbox" name="selectedObjects" value="@answer.AnswerID,@question.QuestionID,@Model.TestTemplateName" />
                                 @Html.Raw("  ")
                                 @Html.Label(answer.AnswerID.ToString(), answer.AnswerText)
                                 <br />

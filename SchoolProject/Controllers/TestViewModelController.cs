@@ -50,9 +50,9 @@ namespace SchoolProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TakeTest(string[] selectedObjects)//[ModelBinder(typeof (TestModelBinder))] TestViewModel testViewModel
+        public ActionResult TakeTest(string[] selectedObjects)
         {
-            int points = 0;
+            float points = 0;
             List<StudentAnswer> studentAnswers = new List<StudentAnswer>();
             List<Question> testQuestions = new List<Question>();
             StudentsTest studentsTest = new StudentsTest();
@@ -71,12 +71,14 @@ namespace SchoolProject.Controllers
                 Int32.TryParse(queIDstring, out queID);
                 var question = db.Questions.Find(queID);
                 testQuestions.Add(question);
+                float numCA = question.NumOfCorrectAns();
 
                 if (answer.IsCorrect)
                 {
-                    if (question.NumOfCorrectAns() > 1)
+                    if (numCA > 1 )
                     {
-                        points = points + (question.Points / question.NumOfCorrectAns());
+                        points = points + (question.Points / numCA);
+                        
                     }
                     else
                     {
@@ -84,6 +86,9 @@ namespace SchoolProject.Controllers
                     }
                 }
             }
+            string templateName = selectedObjects[0].Split(',')[2];
+            TestTemplate testTemplate = db.TestTemplates.Single(t => t.Name.Equals(templateName));
+            studentsTest.TestTemplate = testTemplate;
             studentsTest.Points = points;
             studentsTest.StudentAnswers = studentAnswers;
             var userID = User.Identity.GetUserId();
