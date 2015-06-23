@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.ModelBinding;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using SchoolProject.CustomFilters;
 using SchoolProject.DAL;
 using SchoolProject.Models;
@@ -90,54 +91,66 @@ namespace SchoolProject.Controllers
             ViewBag.CountSortParm = sortOrder == "Count" ? "count_desc" : "Count";
             ViewBag.GroupSortParm = sortOrder == "Group" ? "group_desc" : "Group";
 
+            Student student = (Student)db.Users.Find(User.Identity.GetUserId());
 
-            var testTemplates = db.TestTemplates.Include(t => t.StudentGroup);
+            List<StudentGroup> studentGroups = student.StudentGroups;
+            List<TestTemplate> testTemplatesForStudent = new List<TestTemplate>();
+            IEnumerable<TestTemplate> testTemplates = db.TestTemplates.Include(t => t.StudentGroup);
+            foreach (var template in testTemplates)
+            {
+                if (studentGroups.Contains(template.StudentGroup))
+                {
+                    testTemplatesForStudent.Add(template);
+                }
+            }
+            //var testTemplates = db.TestTemplates.Include(t => t.StudentGroup);
+            //testTemplates = testTemplates.Where(a => a.)
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                testTemplates = testTemplates.Where(s => s.Name.Contains(searchString)
-                                       || s.StudentGroup.Title.Contains(searchString));
+                testTemplatesForStudent = testTemplatesForStudent.Where(s => s.Name.Contains(searchString)
+                                       || s.StudentGroup.Title.Contains(searchString)).ToList();
             }
             switch (sortOrder)
             {
                 case "name_desc":
-                    testTemplates = testTemplates.OrderByDescending(s => s.Name);
+                    testTemplatesForStudent = testTemplatesForStudent.OrderByDescending(s => s.Name).ToList();
                     break;
                 case "time_desc":
-                    testTemplates = testTemplates.OrderByDescending(s => s.Time);
+                    testTemplatesForStudent = testTemplatesForStudent.OrderByDescending(s => s.Time).ToList();
                     break;
                 case "Time":
-                    testTemplates = testTemplates.OrderBy(s => s.Time);
+                    testTemplatesForStudent = testTemplatesForStudent.OrderBy(s => s.Time).ToList();
                     break;
                 case "STime":
-                    testTemplates = testTemplates.OrderBy(s => s.StartTime);
+                    testTemplatesForStudent = testTemplatesForStudent.OrderBy(s => s.StartTime).ToList();
                     break;
                 case "stime_desc":
-                    testTemplates = testTemplates.OrderByDescending(s => s.StartTime);
+                    testTemplatesForStudent = testTemplatesForStudent.OrderByDescending(s => s.StartTime).ToList();
                     break;
                 case "ETime":
-                    testTemplates = testTemplates.OrderBy(s => s.EndTime);
+                    testTemplatesForStudent = testTemplatesForStudent.OrderBy(s => s.EndTime).ToList();
                     break;
                 case "etime_desc":
-                    testTemplates = testTemplates.OrderByDescending(s => s.EndTime);
+                    testTemplatesForStudent = testTemplatesForStudent.OrderByDescending(s => s.EndTime).ToList();
                     break;
                 case "Count":
-                    testTemplates = testTemplates.OrderBy(s => s.QuestionCount);
+                    testTemplatesForStudent = testTemplatesForStudent.OrderBy(s => s.QuestionCount).ToList();
                     break;
                 case "count_desc":
-                    testTemplates = testTemplates.OrderByDescending(s => s.QuestionCount);
+                    testTemplatesForStudent = testTemplatesForStudent.OrderByDescending(s => s.QuestionCount).ToList();
                     break;
                 case "Group":
-                    testTemplates = testTemplates.OrderBy(s => s.StudentGroup.Title);
+                    testTemplatesForStudent = testTemplatesForStudent.OrderBy(s => s.StudentGroup.Title).ToList();
                     break;
                 case "group_desc":
-                    testTemplates = testTemplates.OrderByDescending(s => s.StudentGroup.Title);
+                    testTemplatesForStudent = testTemplatesForStudent.OrderByDescending(s => s.StudentGroup.Title).ToList();
                     break;
                 default:
-                    testTemplates = testTemplates.OrderBy(s => s.Name);
+                    testTemplatesForStudent = testTemplatesForStudent.OrderBy(s => s.Name).ToList();
                     break;
             }
-            return View(testTemplates.ToList());
+            return View(testTemplatesForStudent);
         }
           
 

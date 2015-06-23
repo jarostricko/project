@@ -30,8 +30,7 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.ActionLink("Students", "IndexStudent", new { id = item.StudentGroupID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.StudentGroupID })
+                @Html.ActionLink("Students", "IndexStudent", new { id = item.StudentGroupID }) 
             </td>
         </tr>
     }
