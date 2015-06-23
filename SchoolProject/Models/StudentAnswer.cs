@@ -11,5 +11,8 @@ namespace SchoolProject.Models
         public int AnswerID { get; set; }
         public Answer Answer { get; set; }
         public bool IsChecked { get; set; }
+        public int StudentsTestID { get; set; }
+        
+        public virtual List<StudentsTest> StudentsTest { get; set; }
     }
 }

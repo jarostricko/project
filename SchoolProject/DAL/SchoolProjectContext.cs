@@ -33,6 +33,7 @@ namespace SchoolProject.DAL
         public DbSet<EditUserViewModel> EditUserViewModels { get; set; }
         public DbSet<StudentsTest> StudentsTests { get; set; }
         public DbSet<TestViewModel> TestViewModels { get; set; }
+        public DbSet<StudentAnswer> StudentAnswers { get; set; }
         
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -45,7 +46,7 @@ namespace SchoolProject.DAL
 
         }
 
-        public System.Data.Entity.DbSet<SchoolProject.Models.StudentAnswer> StudentAnswers { get; set; }
+        
 
     }
 }

@@ -254,6 +254,14 @@
     <Compile Include="Migrations\201506231604570_float.Designer.cs">
       <DependentUpon>201506231604570_float.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506231832230_ans.cs" />
+    <Compile Include="Migrations\201506231832230_ans.Designer.cs">
+      <DependentUpon>201506231832230_ans.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506231849328_answer.cs" />
+    <Compile Include="Migrations\201506231849328_answer.Designer.cs">
+      <DependentUpon>201506231849328_answer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -448,6 +456,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506231604570_float.resx">
       <DependentUpon>201506231604570_float.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506231832230_ans.resx">
+      <DependentUpon>201506231832230_ans.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506231849328_answer.resx">
+      <DependentUpon>201506231849328_answer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

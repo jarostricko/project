@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SchoolProject.Models.StudentAnswer>
+﻿@model IEnumerable<SchoolProject.Models.Answer>
 
 @{
     ViewBag.Title = "Answers";
@@ -12,28 +12,38 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Answer.AnswerText)
+            @Html.DisplayNameFor(model => model.Question.Text)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Answer.Question.Text)
+            @Html.DisplayNameFor(model => model.AnswerText)
         </th>
+        <th>
+            @Html.DisplayNameFor(m => m.IsCorrect)
+        </th>
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Answer.AnswerText)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Answer.Question.Text)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.StudentAnswerID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.StudentAnswerID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.StudentAnswerID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnswerText)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.IsCorrect)
+            </td>
+
+            @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AnswerID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AnswerID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AnswerID })
+        </td>*@
+        </tr>
+    }
 
 </table>
+<p>@Html.ActionLink("Back","Index","StudentsTest")</p>

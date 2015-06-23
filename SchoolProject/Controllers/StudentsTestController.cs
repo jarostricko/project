@@ -131,7 +131,14 @@ namespace SchoolProject.Controllers
         public ActionResult Answers(int id)
         {
             StudentsTest studentsTest = db.StudentsTests.Find(id);
-            List<StudentAnswer> studentAnswers = studentsTest.StudentAnswers;
+            List<Answer> studentAnswers = new List<Answer>();
+
+            foreach (var ans in studentsTest.StudentAnswers)
+            {
+                int answerID = ans.AnswerID;
+                var answer = db.Answers.Find(answerID);
+                studentAnswers.Add(answer);
+            }
             return View(studentAnswers);
 
 
