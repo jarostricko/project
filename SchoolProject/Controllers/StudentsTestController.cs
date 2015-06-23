@@ -18,7 +18,10 @@ namespace SchoolProject.Controllers
         // GET: StudentsTest
         public ActionResult Index()
         {
-            return View(db.StudentsTests.ToList());
+            var studentTests = db.StudentsTests.Include(a => a.StudentAnswers).Include(s => s.Student).Include(c => c.TestTemplate).ToList();
+            
+            
+            return View(studentTests);
         }
 
         // GET: StudentsTest/Details/5
@@ -123,6 +126,15 @@ namespace SchoolProject.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Answers(int id)
+        {
+            StudentsTest studentsTest = db.StudentsTests.Find(id);
+            List<StudentAnswer> studentAnswers = studentsTest.StudentAnswers;
+            return View(studentAnswers);
+
+
         }
     }
 }

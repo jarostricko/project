@@ -9,27 +9,42 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
 <table class="table">
     <tr>
-        
+
         <th>
             @Html.DisplayNameFor(model => model.Points)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Student.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.TestTemplate.Name)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.Points)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.StudentTestID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.StudentTestID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.StudentTestID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Points)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestTemplate.Name)
+            </td>
+
+            <td>
+                @Html.ActionLink("Student Answers", "Answers", new { id = item.StudentTestID })|
+                @Html.ActionLink("Edit", "Edit", new { id = item.StudentTestID })|
+                @Html.ActionLink("Delete", "Delete", new { id = item.StudentTestID })
+            </td>
+        </tr>
+    }
 
 </table>

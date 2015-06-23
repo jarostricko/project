@@ -45,5 +45,7 @@ namespace SchoolProject.DAL
 
         }
 
+        public System.Data.Entity.DbSet<SchoolProject.Models.StudentAnswer> StudentAnswers { get; set; }
+
     }
 }
