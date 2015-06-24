@@ -109,6 +109,7 @@ namespace SchoolProject.Controllers
             return View(viewModel);
         }
 
+        [AuthLog]
         public ActionResult IndexStudent(string sortOrder, string searchString, int? id, string email)
         {
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
@@ -175,26 +176,10 @@ namespace SchoolProject.Controllers
                     ViewBag.StudentGroupID = id.Value;
                     viewModel.Students = null;
                 }
-
             }
-
-            //switch (sortOrder)
-            //{
-            //    case "title_desc":
-            //        viewModel.StudentGroups = viewModel.StudentGroups.
-            //            OrderByDescending(i => i.Title);
-            //        break;
-            //    default:
-            //        viewModel.StudentGroups = viewModel.StudentGroups.
-            //            OrderBy(i => i.Title);
-            //        break;
-            //}
-            
             return View(viewModel);
         }
         
-        
-
         // GET: StudentGroup/Details/5
         [AuthLog(Roles = "Teacher")]
         public ActionResult Details(int? id)
@@ -327,6 +312,7 @@ namespace SchoolProject.Controllers
             base.Dispose(disposing);
         }
 
+        [AuthLog(Roles = "Teacher")]
         public ActionResult AddStudent(int id)
         {
             StudentGroup studentGroup = db.StudentGroups.Find(id);
@@ -348,10 +334,10 @@ namespace SchoolProject.Controllers
             return View(viewModel);
         }
 
+        [AuthLog(Roles = "Teacher")]
         public ActionResult AddStudentByEmail(int id, string studentEmail)
         {
             StudentGroup studentGroup = db.StudentGroups.Find(id);
-            //Student student = db.Students.Find(studentID);
             Student student = (Student)db.Users.Single(u => u.Email.Equals(studentEmail));
             studentGroup.Students.Add(student);
             db.SaveChanges();

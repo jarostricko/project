@@ -14,6 +14,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PagedList;
+using SchoolProject.CustomFilters;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 
@@ -59,7 +60,7 @@ namespace SchoolProject.Controllers
                 _userManager = value;
             }
         }
-
+        [AuthLog(Roles = "Teacher")]
         public ActionResult IndexStudent(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -125,6 +126,8 @@ namespace SchoolProject.Controllers
             int pageNumber = (page ?? 1);
             return View(students.ToPagedList(pageNumber, pageSize));
         }
+
+        [AuthLog(Roles = "Teacher")]
         public ActionResult IndexTeacher(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -192,7 +195,7 @@ namespace SchoolProject.Controllers
             int pageNumber = (page ?? 1);
             return View(teachers.ToPagedList(pageNumber, pageSize));
         }
-
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Delete(string email = null, bool? saveChangesError = false)
         {
             if (email == null)
@@ -236,7 +239,7 @@ namespace SchoolProject.Controllers
             return RedirectToAction("IndexStudent");
 
         }
-
+        [AuthLog(Roles = "Teacher")]
         // GET: Teacher/Edit/5
         public ActionResult Edit(string email = null)
         {

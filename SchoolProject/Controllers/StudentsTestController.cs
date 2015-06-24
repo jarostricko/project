@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using SchoolProject.CustomFilters;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 
@@ -17,6 +18,7 @@ namespace SchoolProject.Controllers
         private SchoolProjectContext db = new SchoolProjectContext();
 
         // GET: StudentsTest
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Index()
         {
             var studentTests = db.StudentsTests.Include(a => a.StudentAnswers).Include(s => s.Student).Include(c => c.TestTemplate).ToList();
@@ -25,6 +27,17 @@ namespace SchoolProject.Controllers
             return View(studentTests);
         }
 
+        [AuthLog]
+        public ActionResult IndexStudent()
+        {
+            var userID = User.Identity.GetUserId();
+            Student student = (Student)db.Users.Find(userID);
+            var studeTests = student.StudentsTests;
+            var studentTests = db.StudentsTests.Include(a => a.StudentAnswers).Include(s => s.Student).Include(c => c.TestTemplate).ToList();
+            return View(studeTests);
+        }
+
+        [AuthLog(Roles = "Teacher")]
         // GET: StudentsTest/Details/5
         public ActionResult Details(int? id)
         {
@@ -40,6 +53,7 @@ namespace SchoolProject.Controllers
             return View(studentsTest);
         }
 
+        [AuthLog(Roles = "Teacher")]
         // GET: StudentsTest/Create
         public ActionResult Create()
         {
@@ -63,6 +77,7 @@ namespace SchoolProject.Controllers
             return View(studentsTest);
         }
 
+        [AuthLog(Roles = "Teacher")]
         // GET: StudentsTest/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -94,6 +109,7 @@ namespace SchoolProject.Controllers
             return View(studentsTest);
         }
 
+        [AuthLog(Roles = "Teacher")]
         // GET: StudentsTest/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -110,6 +126,7 @@ namespace SchoolProject.Controllers
         }
 
         // POST: StudentsTest/Delete/5
+        [AuthLog(Roles = "Teacher")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -131,6 +148,7 @@ namespace SchoolProject.Controllers
             base.Dispose(disposing);
         }
 
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Answers(int id)
         {
             StudentsTest studentsTest = db.StudentsTests.Find(id);
@@ -145,6 +163,7 @@ namespace SchoolProject.Controllers
             }
             return View(studentAnswers);
         }
+        [AuthLog]
         public ActionResult AnswersStudent(int id)
         {
             StudentsTest studentsTest = db.StudentsTests.Find(id);
@@ -160,13 +179,6 @@ namespace SchoolProject.Controllers
             return View(studentAnswers);
         }
 
-        public ActionResult IndexStudent()
-        {
-            var userID = User.Identity.GetUserId();
-            Student student = (Student)db.Users.Find(userID);
-            var studeTests = student.StudentsTests;
-            var studentTests = db.StudentsTests.Include(a => a.StudentAnswers).Include(s => s.Student).Include(c => c.TestTemplate).ToList();
-            return View(studeTests);
-        }
+        
     }
 }

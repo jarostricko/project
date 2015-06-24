@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using SchoolProject.CustomFilters;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 using SchoolProject.Models.Binders;
@@ -20,6 +21,7 @@ namespace SchoolProject.Controllers
     {
         private SchoolProjectContext db = new SchoolProjectContext();
         
+        [AuthLog]
         public ActionResult TakeTest(int? id)
         {
             if (id == null)
@@ -40,14 +42,17 @@ namespace SchoolProject.Controllers
                     questions.Add(q);
                 }
             }
-            TestViewModel testViewModel = new TestViewModel();
-            testViewModel.Questions = questions;
-            testViewModel.TestTemplateName = testTemplate.Name;
-            testViewModel.Score = 0;
+            TestViewModel testViewModel = new TestViewModel
+            {
+                Questions = questions,
+                TestTemplateName = testTemplate.Name,
+                Score = 0
+            };
             ViewBag.Questions = testViewModel.Questions;
             return View(testViewModel);
         }
 
+        [AuthLog]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult TakeTest(string[] selectedObjects)
@@ -102,22 +107,17 @@ namespace SchoolProject.Controllers
             db.StudentsTests.Add(studentsTest);
             db.StudentAnswers.AddRange(studentAnswers);
             db.SaveChanges();
-            //var allKeys = ControllerContext.HttpContext.Request.Form.AllKeys;
-            //var questions = db.Questions.Include(a => a.AnswersList).Where(q => allKeys.Contains(q.QuestionID.ToString()));
-            //foreach (var question in questions)
-            //{
-            //    var answers = question.AnswersList;
-            //    points += answers.Where(ans => ans.AnsweredByStudent && ans.IsCorrect).Sum(ans => question.Points);
-            //}
             
             return RedirectToAction("IndexStudent", "TestTemplate");
         }
+        [AuthLog(Roles = "Teacher")]
         // GET: TestViewModel
         public ActionResult Index()
         {
             return View(db.TestViewModels.ToList());
         }
 
+        [AuthLog(Roles = "Teacher")]
         // GET: TestViewModel/Details/5
         public ActionResult Details(int? id)
         {
@@ -133,6 +133,7 @@ namespace SchoolProject.Controllers
             return View(testViewModel);
         }
 
+        [AuthLog(Roles = "Teacher")]
         // GET: TestViewModel/Create
         public ActionResult Create()
         {
@@ -156,6 +157,7 @@ namespace SchoolProject.Controllers
             return View(testViewModel);
         }
 
+        [AuthLog(Roles = "Teacher")]
         // GET: TestViewModel/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -187,6 +189,7 @@ namespace SchoolProject.Controllers
             return View(testViewModel);
         }
 
+        [AuthLog(Roles = "Teacher")]
         // GET: TestViewModel/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -201,7 +204,7 @@ namespace SchoolProject.Controllers
             }
             return View(testViewModel);
         }
-
+        [AuthLog(Roles = "Teacher")]
         // POST: TestViewModel/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -23,22 +23,6 @@ namespace SchoolProject.Controllers
             return View();
         }
 
-        // GET: Teacher/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Teacher teacher = db.Teachers.Find(id);
-        //    if (teacher == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(teacher);
-        //}
-
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

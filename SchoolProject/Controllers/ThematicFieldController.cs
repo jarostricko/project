@@ -17,6 +17,7 @@ namespace SchoolProject.Controllers
         private SchoolProjectContext db = new SchoolProjectContext();
 
         // GET: ThematicField
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Index(string sortOrder, string searchString)
         {
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";

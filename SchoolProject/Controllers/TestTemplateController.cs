@@ -23,6 +23,7 @@ namespace SchoolProject.Controllers
         private SchoolProjectContext db = new SchoolProjectContext();
 
         // GET: TestTemplate
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Index(string sortOrder, string searchString)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -30,6 +31,7 @@ namespace SchoolProject.Controllers
             ViewBag.STimeSortParm = sortOrder == "STime" ? "stime_desc" : "STime";
             ViewBag.ETimeSortParm = sortOrder == "ETime" ? "etime_desc" : "ETime";
             ViewBag.CountSortParm = sortOrder == "Count" ? "count_desc" : "Count";
+            ViewBag.PointsSortParm = sortOrder == "Points" ? "points_desc" : "Points";
             ViewBag.GroupSortParm = sortOrder == "Group" ? "group_desc" : "Group";
 
 
@@ -69,6 +71,12 @@ namespace SchoolProject.Controllers
                 case "count_desc":
                     testTemplates = testTemplates.OrderByDescending(s => s.QuestionCount);
                     break;
+                case "Points":
+                    testTemplates = testTemplates.OrderBy(s => s.FullPoints);
+                    break;
+                case "points_desc":
+                    testTemplates = testTemplates.OrderByDescending(s => s.FullPoints);
+                    break;
                 case "Group":
                     testTemplates = testTemplates.OrderBy(s => s.StudentGroup.Title);
                     break;
@@ -81,7 +89,8 @@ namespace SchoolProject.Controllers
             }
             return View(testTemplates.ToList());
         }
-
+        
+        [AuthLog]
         public ActionResult IndexStudent(string sortOrder, string searchString)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -89,6 +98,7 @@ namespace SchoolProject.Controllers
             ViewBag.STimeSortParm = sortOrder == "STime" ? "stime_desc" : "STime";
             ViewBag.ETimeSortParm = sortOrder == "ETime" ? "etime_desc" : "ETime";
             ViewBag.CountSortParm = sortOrder == "Count" ? "count_desc" : "Count";
+            ViewBag.PointsSortParm = sortOrder == "Points" ? "points_desc" : "Points";
             ViewBag.GroupSortParm = sortOrder == "Group" ? "group_desc" : "Group";
 
             Student student = (Student)db.Users.Find(User.Identity.GetUserId());
@@ -100,7 +110,8 @@ namespace SchoolProject.Controllers
             IEnumerable<TestTemplate> testTemplates = db.TestTemplates.Include(t => t.StudentGroup);
             foreach (var template in testTemplates)
             {
-                if (studentGroups.Contains(template.StudentGroup) && !usedTemplates.Contains(template))
+                if (studentGroups.Contains(template.StudentGroup) && !usedTemplates.Contains(template) &&
+                    template.StartTime.CompareTo(DateTime.Now) < 0 && template.EndTime.CompareTo(DateTime.Now) >0)
                 {
                     testTemplatesForStudent.Add(template);
                 }
@@ -141,6 +152,12 @@ namespace SchoolProject.Controllers
                     break;
                 case "count_desc":
                     testTemplatesForStudent = testTemplatesForStudent.OrderByDescending(s => s.QuestionCount).ToList();
+                    break;
+                case "Points":
+                    testTemplatesForStudent = testTemplatesForStudent.OrderBy(s => s.FullPoints).ToList();
+                    break;
+                case "points_desc":
+                    testTemplatesForStudent = testTemplatesForStudent.OrderByDescending(s => s.FullPoints).ToList();
                     break;
                 case "Group":
                     testTemplatesForStudent = testTemplatesForStudent.OrderBy(s => s.StudentGroup.Title).ToList();
@@ -294,28 +311,7 @@ namespace SchoolProject.Controllers
             PopulateAssignedFieldData(templateToUpdate);
             return View(templateToUpdate);
         }
-        //public ActionResult Edit([Bind(Include = "TestTemplateID,Name,Time,StartTime,EndTime,QuestionCount,StudentGroupID")] TestTemplate testTemplate, string[] selectedFields)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-
-        //            UpdateTemplateFields(selectedFields, testTemplate);
-        //            db.Entry(testTemplate).State = EntityState.Modified;
-        //            db.SaveChanges();
-        //            return RedirectToAction("Index");
-        //        }
-        //    }
-        //    catch (RetryLimitExceededException)
-        //    {
-
-        //        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-        //    }
-        //    PopulateAssignedFieldData(testTemplate);
-        //    ViewBag.StudentGroupID = new SelectList(db.StudentGroups, "StudentGroupID", "Title", testTemplate.StudentGroupID);
-        //    return View(testTemplate);
-        //}
+        
 
         private void UpdateTemplateFields(string[] selectedFields, TestTemplate testTemplate)
         {
@@ -379,6 +375,7 @@ namespace SchoolProject.Controllers
             return RedirectToAction("Index");
         }
 
+        [AuthLog(Roles = "Teacher")]
         public void GenerateRandomQuestions(TestTemplate testTemplate, bool refresh)
         {
             if (refresh)
@@ -447,6 +444,7 @@ namespace SchoolProject.Controllers
             base.Dispose(disposing);
         }
 
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Refresh(int id)
         {
             try
@@ -464,36 +462,12 @@ namespace SchoolProject.Controllers
             return RedirectToAction("Details", new { id = id });
         }
 
+        [AuthLog]
         public ActionResult TakeTest(int? id)
         {
             return RedirectToAction("TakeTest", "TestViewModel",new {id = id});
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //TestTemplate testTemplate = db.TestTemplates.Include(a => a.Questions).Single(a => a.TestTemplateID == id);
-            //if (testTemplate == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //TestViewModel testViewModel = new TestViewModel();
-            //testViewModel.Questions = testTemplate.Questions;
-            //testViewModel.TestTemplateName = testTemplate.Name;
-            //testViewModel.Score = 0;
-            //ViewBag.Questions = testViewModel.Questions;
-            //return View(testViewModel);
+            
         }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult TakeTest(TestViewModel modelBinder)
-        //{
-        //    var questions = ViewBag.Questions;
-        //    if (ModelState.IsValid)
-        //    {
-        //        var result = new StudentsTest();
-        //        //result.TestTemplate.Name = testViewModel.TestTemplateName;
-        //    }
-        //    return RedirectToAction("IndexStudent", "TestTemplate");
-        //}
+        
     }
 }

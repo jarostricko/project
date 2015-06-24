@@ -25,6 +25,7 @@ namespace SchoolProject.Controllers
         /// Get All Roles
         /// </summary>
         /// <returns></returns>
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Index()
         {
             var Roles = context.Roles.ToList();
@@ -35,7 +36,7 @@ namespace SchoolProject.Controllers
         /// Create  a New role
         /// </summary>
         /// <returns></returns>
-        
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Create()
         {
             var Role = new IdentityRole();

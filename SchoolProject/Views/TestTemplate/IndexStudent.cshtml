@@ -30,7 +30,7 @@
             @Html.ActionLink("Questions", "IndexStudent", new {sortOrder = ViewBag.CountSortParm})
         </th>
         <th>
-            Total Points
+            @Html.ActionLink("Total Points", "IndexStudent", new { sortOrder = ViewBag.PointsSortParm })
         </th>
         <th>
             @Html.ActionLink("Student Group", "IndexStudent", new { sortOrder = ViewBag.GroupSortParm })

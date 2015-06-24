@@ -27,22 +27,6 @@ namespace SchoolProject.Controllers
           return View();
         }
 
-        /*
-        // GET: Student/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student student = db.Students.Find(id);
-            if (student == null)
-            {
-                return HttpNotFound();
-            }
-            return View(student);
-        }
-        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)

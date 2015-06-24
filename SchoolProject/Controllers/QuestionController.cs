@@ -18,6 +18,7 @@ namespace SchoolProject.Controllers
         private SchoolProjectContext db = new SchoolProjectContext();
 
         // GET: Question
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Index(string sortOrder, string searchString)
         {
             ViewBag.TextSortParm = String.IsNullOrEmpty(sortOrder) ? "text_desc" : "";
@@ -98,7 +99,7 @@ namespace SchoolProject.Controllers
                 {
                     db.Questions.Add(question);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details", new {id = question.QuestionID});
                 }
             }
             catch (DataException /* dex */)
@@ -200,6 +201,7 @@ namespace SchoolProject.Controllers
             base.Dispose(disposing);
         }
 
+        [AuthLog(Roles = "Teacher")]
         public ActionResult Add(int questionID)
         {
             return RedirectToAction("Create","Answer",new {questionID = questionID});
