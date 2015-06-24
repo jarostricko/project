@@ -36,10 +36,10 @@ namespace SchoolProject.Models
         public virtual List<TestTemplate> TestTemplates { get; set; }
         public virtual ThematicField ThematicField { get; set; }
 
-        public bool MoreCorrectAnswersOrZero()
+        public bool MoreCorrectAnswers()
         {
             int correct = AnswersList.Count(answer => answer.IsCorrect);
-            if (correct == 0) return true;
+            
             if (correct > 1) return true;
             return false;
         }
@@ -48,5 +48,14 @@ namespace SchoolProject.Models
         {
             return AnswersList.Count(answer => answer.IsCorrect);
         }
+
+        //public float PointsForOneCorrect()
+        //{
+        //    if (this.MoreCorrectAnswers())
+        //    {
+        //        return Points/this.NumOfCorrectAns();
+        //    }
+        //    return Points;
+        //}
     }
 }

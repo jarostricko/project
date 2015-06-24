@@ -24,8 +24,7 @@ namespace SchoolProject.Models
         public virtual StudentGroup StudentGroup { get; set; }
         public virtual List<Question> Questions { get; set; }
         public virtual List<ThematicField> ThematicFields { get; set; }
+        public int FullPoints { get; set;}
 
-        //public virtual List<StudentAnswer> StudentAnswers { get; set; }
-        
     }
 }

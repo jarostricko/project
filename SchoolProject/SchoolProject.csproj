@@ -262,6 +262,18 @@
     <Compile Include="Migrations\201506231849328_answer.Designer.cs">
       <DependentUpon>201506231849328_answer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506241505303_pointsFloat.cs" />
+    <Compile Include="Migrations\201506241505303_pointsFloat.Designer.cs">
+      <DependentUpon>201506241505303_pointsFloat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506241514466_TempPoints.cs" />
+    <Compile Include="Migrations\201506241514466_TempPoints.Designer.cs">
+      <DependentUpon>201506241514466_TempPoints.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506241552087_fullPoints.cs" />
+    <Compile Include="Migrations\201506241552087_fullPoints.Designer.cs">
+      <DependentUpon>201506241552087_fullPoints.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -391,6 +403,7 @@
     <Content Include="Views\StudentsTest\Index.cshtml" />
     <None Include="Views\StudentGroup\IndexStudent.cshtml" />
     <Content Include="Views\StudentsTest\Answers.cshtml" />
+    <None Include="Views\StudentsTest\AnswersStudent.cshtml" />
     <None Include="Views\StudentsTest\IndexStudent.cshtml" />
     <None Include="Views\TestTemplate\IndexStudent.cshtml" />
     <None Include="Views\TestTemplate\TakeTest.cshtml" />
@@ -463,6 +476,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506231849328_answer.resx">
       <DependentUpon>201506231849328_answer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506241505303_pointsFloat.resx">
+      <DependentUpon>201506241505303_pointsFloat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506241514466_TempPoints.resx">
+      <DependentUpon>201506241514466_TempPoints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506241552087_fullPoints.resx">
+      <DependentUpon>201506241552087_fullPoints.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

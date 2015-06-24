@@ -12,6 +12,7 @@ namespace SchoolProject.Models
         public Answer Answer { get; set; }
         public bool IsChecked { get; set; }
         public int StudentsTestID { get; set; }
+        public float Points { get; set; }
         
         public virtual List<StudentsTest> StudentsTest { get; set; }
     }

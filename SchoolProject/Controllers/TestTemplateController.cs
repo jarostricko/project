@@ -403,6 +403,8 @@ namespace SchoolProject.Controllers
             List<Question> toChoose = new List<Question>();
             Random rnd = new Random();
             int number;
+            int totalPoints = 0;
+
             foreach (var question in questions)
             {
                 if (thematicFields.Contains(question.ThematicField))
@@ -414,6 +416,8 @@ namespace SchoolProject.Controllers
             if (toChoose.Count <= testTemplate.QuestionCount)
             {
                 testTemplate.Questions = toChoose.ToList();
+                totalPoints += toChoose.Sum(question => question.Points);
+                testTemplate.FullPoints = totalPoints;
                 return;
             }
             for (int i = 0; i < testTemplate.QuestionCount; i++)
@@ -424,9 +428,11 @@ namespace SchoolProject.Controllers
                     number = rnd.Next(0, toChoose.Count);
                 }
                 list.Add(toChoose[number]);
+                totalPoints += toChoose[number].Points;
             }
 
             testTemplate.Questions = list;
+            testTemplate.FullPoints = totalPoints;
 
         }
 

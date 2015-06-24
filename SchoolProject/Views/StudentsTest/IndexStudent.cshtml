@@ -15,7 +15,7 @@
             Email
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Points)
+            Points from test
         </th>
 
         <th>
@@ -34,7 +34,7 @@
                 @Html.DisplayFor(m => item.Student.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Points)
+                @Html.DisplayFor(modelItem => item.Points)/@Html.DisplayFor(model => item.Points)
             </td>
 
             <td>
@@ -42,7 +42,7 @@
             </td>
 
             <td>
-                @Html.ActionLink("Your Answers List", "Answers", new { id = item.StudentTestID })
+                @Html.ActionLink("Your Answers List", "AnswersStudent", new { id = item.StudentTestID })
             </td>
         </tr>
     }

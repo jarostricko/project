@@ -64,7 +64,7 @@ namespace SchoolProject.Controllers
                 int ansID;
                 Int32.TryParse(ansIDstring, out ansID);
                 var answer = db.Answers.Find(ansID);
-                studentAnswers.Add(new StudentAnswer { Answer = answer, AnswerID = ansID, IsChecked = true });
+                var sAns = new StudentAnswer { Answer = answer, AnswerID = ansID, IsChecked = true };
 
                 var queIDstring = splitted[1];
                 int queID;
@@ -78,14 +78,19 @@ namespace SchoolProject.Controllers
                     if (numCA > 1 )
                     {
                         points = points + (question.Points / numCA);
-                        
+                        sAns.Points = question.Points/numCA;
+
+
                     }
                     else
                     {
                         points = points + question.Points;
+                        sAns.Points = question.Points;
                     }
                 }
+                studentAnswers.Add(sAns);
             }
+            
             string templateName = selectedObjects[0].Split(',')[2];
             TestTemplate testTemplate = db.TestTemplates.Single(t => t.Name.Equals(templateName));
             studentsTest.TestTemplate = testTemplate;
@@ -95,6 +100,7 @@ namespace SchoolProject.Controllers
             Student student = (Student) db.Users.Find(userID);
             studentsTest.Student = student;
             db.StudentsTests.Add(studentsTest);
+            db.StudentAnswers.AddRange(studentAnswers);
             db.SaveChanges();
             //var allKeys = ControllerContext.HttpContext.Request.Form.AllKeys;
             //var questions = db.Questions.Include(a => a.AnswersList).Where(q => allKeys.Contains(q.QuestionID.ToString()));

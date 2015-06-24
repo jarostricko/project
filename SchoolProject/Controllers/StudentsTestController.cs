@@ -138,11 +138,24 @@ namespace SchoolProject.Controllers
             {
                 int answerID = ans.AnswerID;
                 var answer = db.Answers.Find(answerID);
+                answer.TempPoints = ans.Points;
                 studentAnswers.Add(answer);
             }
             return View(studentAnswers);
+        }
+        public ActionResult AnswersStudent(int id)
+        {
+            StudentsTest studentsTest = db.StudentsTests.Find(id);
+            List<Answer> studentAnswers = new List<Answer>();
 
-
+            foreach (var ans in studentsTest.StudentAnswers)
+            {
+                int answerID = ans.AnswerID;
+                var answer = db.Answers.Find(answerID);
+                answer.TempPoints = ans.Points;
+                studentAnswers.Add(answer);
+            }
+            return View(studentAnswers);
         }
 
         public ActionResult IndexStudent()

@@ -27,7 +27,10 @@
             @Html.ActionLink("Available to", "IndexStudent", new { sortOrder = ViewBag.ETimeSortParm })
         </th>
         <th>
-            @Html.ActionLink("Questions", "IndexStudent", new { sortOrder = ViewBag.CountSortParm })
+            @Html.ActionLink("Questions", "IndexStudent", new {sortOrder = ViewBag.CountSortParm})
+        </th>
+        <th>
+            Total Points
         </th>
         <th>
             @Html.ActionLink("Student Group", "IndexStudent", new { sortOrder = ViewBag.GroupSortParm })
@@ -52,6 +55,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.QuestionCount)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.FullPoints)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StudentGroup.Title)

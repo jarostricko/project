@@ -21,7 +21,7 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">@question.Text</h3><br />
                     </div>
-                    @if (!question.MoreCorrectAnswersOrZero())
+                    @if (!question.MoreCorrectAnswers())
                     {
                         <div class="panel-body">
                             @foreach (var answer in question.AnswersList)

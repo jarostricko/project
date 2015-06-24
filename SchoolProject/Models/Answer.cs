@@ -25,6 +25,7 @@ namespace SchoolProject.Models
         public bool AnsweredByStudent { get; set; }
         public int QuestionID { get; set; }
         public virtual Question Question { get; set; }
+        public float TempPoints { get; set; }
 
 
     }
