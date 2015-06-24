@@ -1,6 +1,10 @@
 ﻿@using System.Web.Mvc.Html
 @model SchoolProject.ViewModels.TestViewModel
-@*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>*@
+@*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css">
+<script type="text/javascript" src="js/jquery.plugin.js"></script>
+<script type="text/javascript" src="js/jquery.countdown.js"></script>*@
+
 @{
     ViewBag.Title = "Test";
 }
@@ -19,20 +23,18 @@
             {
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">@question.Text</h3><br />
+                        <h3 class="panel-title">@question.Text</h3><br/>
                     </div>
                     @if (!question.MoreCorrectAnswers())
                     {
                         <div class="panel-body">
                             @foreach (var answer in question.AnswersList)
                             {
-                                //@Html.RadioButton(question.QuestionID.ToString(), answer.AnswerID, answer.AnsweredByStudent, answer.AnswerID)
-                                //@Html.CheckBox(answer.AnswerID.ToString(),new {value = answer.AnswerText })
                                 <input type="checkbox" name="selectedObjects" value="@answer.AnswerID,@question.QuestionID,@Model.TestTemplateName"/>
                                 //<input type="radio" name="selectedObjects" value="@answer.AnswerID"/>
                                 @Html.Raw("  ")
                                 @Html.Label(answer.AnswerID.ToString(), answer.AnswerText)
-                                <br />
+                                <br/>
                             }
                         </div>
                     }
@@ -41,13 +43,10 @@
                         <div class="panel-body">
                             @foreach (var answer in question.AnswersList)
                             {
-                                //@Html.CheckBox(question.QuestionID.ToString(), answer.AnsweredByStudent, answer.AnswerID)
-                                //@Html.CheckBoxFor(model => answer.AnsweredByStudent,answer.AnswerID)4                                @Html.CheckBox(answer.AnswerID.ToString(), new {value = answer.AnswerID,@checked = true })
-                                //@Html.CheckBox(answer.AnswerID.ToString(), new { value = answer.AnswerText })
-                                <input type="checkbox" name="selectedObjects" value="@answer.AnswerID,@question.QuestionID,@Model.TestTemplateName" />
+                                <input type="checkbox" name="selectedObjects" value="@answer.AnswerID,@question.QuestionID,@Model.TestTemplateName"/>
                                 @Html.Raw("  ")
                                 @Html.Label(answer.AnswerID.ToString(), answer.AnswerText)
-                                <br />
+                                <br/>
                             }
                         </div>
                     }
@@ -55,13 +54,7 @@
                 </div>
             }
             <input type="submit" value="OK" class="btn btn-success" />
-
         </div>
-        @*<div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-
-                </div>
-            </div>*@
     </div>
 }
 <p>

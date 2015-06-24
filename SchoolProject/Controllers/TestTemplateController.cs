@@ -100,7 +100,10 @@ namespace SchoolProject.Controllers
             ViewBag.CountSortParm = sortOrder == "Count" ? "count_desc" : "Count";
             ViewBag.PointsSortParm = sortOrder == "Points" ? "points_desc" : "Points";
             ViewBag.GroupSortParm = sortOrder == "Group" ? "group_desc" : "Group";
-
+            if (db.Users.Find(User.Identity.GetUserId()).IsTeacher)
+            {
+                return RedirectToAction("Index", "TestTemplate");
+            }
             Student student = (Student)db.Users.Find(User.Identity.GetUserId());
             List<StudentsTest> studentsTests = student.StudentsTests;
             List<TestTemplate> usedTemplates = studentsTests.Select(studentTest => studentTest.TestTemplate).ToList();

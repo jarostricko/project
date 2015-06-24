@@ -12,7 +12,6 @@ using Microsoft.AspNet.Identity;
 using SchoolProject.CustomFilters;
 using SchoolProject.DAL;
 using SchoolProject.Models;
-using SchoolProject.Models.Binders;
 using SchoolProject.ViewModels;
 
 namespace SchoolProject.Controllers

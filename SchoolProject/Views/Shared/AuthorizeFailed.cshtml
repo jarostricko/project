@@ -5,4 +5,8 @@
 
 <h2>Authorize Failed</h2>
 
-@ViewData["Message"]
+<div class="alert alert-danger" role="alert">@ViewData["Message"]</div>
+<p>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-danger btn-lg">
+        Log in &raquo;
+    </a>

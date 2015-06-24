@@ -1,5 +1,22 @@
-﻿
-<h3>Student index Page</h3>
+﻿<hr />
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Student index Page</h3>
+    </div>
+    <div class="panel-body">
+        On this page you can see your student groups, test available to you and your test results.
+    </div>
+</div>
+
+<ul class="nav nav-pills">
+    <li role="presentation" class="active"><a href="@Url.Action("IndexStudent", "TestTemplate")">Available Tests</a></li>
+    <li role="presentation" class="active"><a href="@Url.Action("IndexStudent", "StudentGroup", new { email = ViewBag.Student })">Your student groups</a></li>
+    <li role="presentation" class="active"><a href="@Url.Action("IndexStudent", "StudentsTest")">Your tests results</a></li>
+</ul>
+
+
+
+@*<h3>Student index Page</h3>
 <h4>On this page you can see your student groups, test available to you and your test results.</h4>
 <dl class="dl-horizontal">
     <dt>
@@ -22,7 +39,7 @@
         <li>@Html.ActionLink("Your tests results", "IndexStudent", "StudentsTest")</li>
     </dd>
 
-</dl>
+</dl>*@
 
 
 

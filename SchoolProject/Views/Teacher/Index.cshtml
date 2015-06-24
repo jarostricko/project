@@ -1,12 +1,37 @@
 ﻿
-<h3>Teacher index Page</h3>
-<h4>On this page you can manage testing and users.</h4>
-<dl class="dl-horizontal">
+@*<h3>Teacher index Page</h3>
+<h4>On this page you can manage testing and users.</h4>*@
+<hr/>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Teacher index Page</h3>
+    </div>
+    <div class="panel-body">
+        On this page you can manage testing and users.
+    </div>
+</div>
+
+<ul class="nav nav-pills">
+    <li role="presentation" class="active"><a href="@Url.Action("Index", "Question")">Questions</a></li>
+    <li role="presentation" class="active"><a href="@Url.Action("Index", "ThematicField")">Thematic Fields</a></li>
+    <li role="presentation" class="active"><a href="@Url.Action("Index", "TestTemplate")">Test Templates</a></li>
+    <li role="presentation" class="active"><a href="@Url.Action("Index", "StudentGroup")">Student Groups</a></li>
+</ul>
+<hr/>
+<ul class="nav nav-pills">
+    <li role="presentation" class="active"><a href="@Url.Action("IndexStudent","Account")">Students</a></li>
+    <li role="presentation" class="active"><a href="@Url.Action("IndexTeacher","Account")">Teachers</a></li>
+    <li role="presentation" class="active"><a href="@Url.Action("Index", "StudentsTest")">Test Results</a></li>
+    <li role="presentation" class="active"><a href="@Url.Action("Index","Role")">Administrative Roles</a></li>
+</ul>
+
+@*<dl class="dl-horizontal">
     <dt>
         1.
     </dt>
     <dd>
         <li>@Html.ActionLink("Questions", "Index", "Question")</li>
+        
     </dd>
     <dt>
         2.
@@ -52,7 +77,4 @@
         <li>@Html.ActionLink("Administrative Roles", "Index", "Role")</li>
     </dd>
 
-</dl>     
-
-
-
+</dl>*@     

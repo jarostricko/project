@@ -277,7 +277,6 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
-    <Compile Include="Models\Binders\TestModelBinder.cs" />
     <Compile Include="Models\EditUserViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -352,9 +351,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Student\Details.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
-    <Content Include="Views\Teacher\Details.cshtml" />
     <Content Include="Views\Teacher\Index.cshtml" />
     <Content Include="Views\ThematicField\Create.cshtml" />
     <Content Include="Views\ThematicField\Delete.cshtml" />
@@ -406,7 +403,6 @@
     <None Include="Views\StudentsTest\AnswersStudent.cshtml" />
     <None Include="Views\StudentsTest\IndexStudent.cshtml" />
     <None Include="Views\TestTemplate\IndexStudent.cshtml" />
-    <None Include="Views\TestTemplate\TakeTest.cshtml" />
     <None Include="Views\TestViewModel\TakeTest.cshtml" />
   </ItemGroup>
   <ItemGroup>

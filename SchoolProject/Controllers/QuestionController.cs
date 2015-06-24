@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using PagedList;
 using SchoolProject.CustomFilters;
 using SchoolProject.DAL;
 using SchoolProject.Models;
@@ -19,7 +20,7 @@ namespace SchoolProject.Controllers
 
         // GET: Question
         [AuthLog(Roles = "Teacher")]
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string searchString, int? page)
         {
             ViewBag.TextSortParm = String.IsNullOrEmpty(sortOrder) ? "text_desc" : "";
             ViewBag.PointsSortParm = sortOrder == "Point" ? "point_desc" : "Point";
@@ -59,7 +60,9 @@ namespace SchoolProject.Controllers
                     questions = questions.OrderBy(s => s.Text);
                     break;
             }
-            return View(questions.ToList());
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(questions.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Question/Details/5

@@ -20,6 +20,8 @@ namespace SchoolProject.Controllers
         [AuthLog(Roles = "Teacher")]
         public ActionResult Index()
         {
+            ViewBag.QuestionCount = db.Questions.Count();
+            ViewBag.FieldsCount = db.ThematicFields.Count();
             return View();
         }
 
