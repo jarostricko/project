@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using SchoolProject.DAL;
 using SchoolProject.Models;
 
@@ -142,6 +143,15 @@ namespace SchoolProject.Controllers
             return View(studentAnswers);
 
 
+        }
+
+        public ActionResult IndexStudent()
+        {
+            var userID = User.Identity.GetUserId();
+            Student student = (Student)db.Users.Find(userID);
+            var studeTests = student.StudentsTests;
+            var studentTests = db.StudentsTests.Include(a => a.StudentAnswers).Include(s => s.Student).Include(c => c.TestTemplate).ToList();
+            return View(studeTests);
         }
     }
 }

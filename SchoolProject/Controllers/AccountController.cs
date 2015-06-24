@@ -65,6 +65,7 @@ namespace SchoolProject.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.EmailSortParm = sortOrder == "Email" ? "email_desc" : "Email";
             ViewBag.FirstNameSortParm = sortOrder == "FirstName" ? "firstName_desc" : "FirstName";
 
             if (searchString != null)
@@ -104,6 +105,12 @@ namespace SchoolProject.Controllers
                 case "FirstName":
                     students = students.OrderBy(s => s.FirstName).ToList();
                     break;
+                case "Email_desc":
+                    students = students.OrderByDescending(s => s.Email).ToList();
+                    break;
+                case "Email":
+                    students = students.OrderBy(s => s.Email).ToList();
+                    break;
                 case "Date":
                     students = students.OrderBy(s => s.BirthDate).ToList();
                     break;
@@ -123,6 +130,7 @@ namespace SchoolProject.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.EmailSortParm = sortOrder == "Email" ? "email_desc" : "Email";
             ViewBag.FirstNameSortParm = sortOrder == "FirstName" ? "firstName_desc" : "FirstName";
 
             if (searchString != null)
@@ -163,6 +171,12 @@ namespace SchoolProject.Controllers
                     break;
                 case "FirstName":
                     teachers = teachers.OrderBy(s => s.FirstName).ToList();
+                    break;
+                case "Email_desc":
+                    teachers = teachers.OrderByDescending(s => s.Email).ToList();
+                    break;
+                case "Email":
+                    teachers = teachers.OrderBy(s => s.Email).ToList();
                     break;
                 case "Date":
                     teachers = teachers.OrderBy(s => s.BirthDate).ToList();

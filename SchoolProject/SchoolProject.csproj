@@ -391,6 +391,7 @@
     <Content Include="Views\StudentsTest\Index.cshtml" />
     <None Include="Views\StudentGroup\IndexStudent.cshtml" />
     <Content Include="Views\StudentsTest\Answers.cshtml" />
+    <None Include="Views\StudentsTest\IndexStudent.cshtml" />
     <None Include="Views\TestTemplate\IndexStudent.cshtml" />
     <None Include="Views\TestTemplate\TakeTest.cshtml" />
     <None Include="Views\TestViewModel\TakeTest.cshtml" />
