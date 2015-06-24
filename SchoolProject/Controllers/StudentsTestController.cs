@@ -115,6 +115,8 @@ namespace SchoolProject.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             StudentsTest studentsTest = db.StudentsTests.Find(id);
+            List<StudentAnswer> studentAnswers = studentsTest.StudentAnswers;
+            db.StudentAnswers.RemoveRange(studentAnswers);
             db.StudentsTests.Remove(studentsTest);
             db.SaveChanges();
             return RedirectToAction("Index");
