@@ -92,13 +92,15 @@ namespace SchoolProject.Controllers
             ViewBag.GroupSortParm = sortOrder == "Group" ? "group_desc" : "Group";
 
             Student student = (Student)db.Users.Find(User.Identity.GetUserId());
+            List<StudentsTest> studentsTests = student.StudentsTests;
+            //List<TestTemplate> usedTemplates = studentsTests.Select(studentTest => studentTest.TestTemplate).ToList();
 
             List<StudentGroup> studentGroups = student.StudentGroups;
             List<TestTemplate> testTemplatesForStudent = new List<TestTemplate>();
             IEnumerable<TestTemplate> testTemplates = db.TestTemplates.Include(t => t.StudentGroup);
             foreach (var template in testTemplates)
             {
-                if (studentGroups.Contains(template.StudentGroup))
+                if (studentGroups.Contains(template.StudentGroup) /*&& !usedTemplates.Contains(template)*/)
                 {
                     testTemplatesForStudent.Add(template);
                 }

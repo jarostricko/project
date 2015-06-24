@@ -18,6 +18,9 @@
             Points for this answer
         </th>
         <th>
+            Explanation
+        </th>
+        <th>
             @Html.DisplayNameFor(m => m.IsCorrect)
         </th>
     </tr>
@@ -33,6 +36,16 @@
             </td>
             <td>
                 @Html.DisplayFor(model => item.TempPoints)
+            </td>
+            <td>
+                @if (!item.IsCorrect)
+                {
+                    @Html.DisplayFor(model => item.Question.Explanation)
+                }
+                else
+                {
+                    <p>Answer is correct</p>
+                }
             </td>
             <td>
                 @Html.DisplayFor(m => item.IsCorrect)
